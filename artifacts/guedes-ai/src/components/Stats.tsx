@@ -2,11 +2,11 @@ import { motion, useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 
 const stats = [
-  { value: 100, suffix: "+", label: "Palestras" },
-  { value: 30, suffix: "+", label: "Anos" },
-  { value: 60, suffix: "+", label: "Artigos" },
-  { value: 200, suffix: "+", label: "Congressos" },
-  { value: 50, suffix: "+", label: "Projetos" },
+  { value: 100, suffix: "", label: "Palestras" },
+  { value: 30, suffix: "", label: "Anos" },
+  { value: 60, suffix: "", label: "Artigos" },
+  { value: 200, suffix: "", label: "Congressos" },
+  { value: 50, suffix: "", label: "Projetos" },
   { value: 19, suffix: "", label: "Prêmios" },
   { value: 5, suffix: "", label: "Países" },
 ];
