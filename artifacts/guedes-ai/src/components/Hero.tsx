@@ -1,105 +1,126 @@
-import React from "react";
 import { motion } from "framer-motion";
-import { ParticleCanvas } from "./ParticleCanvas";
-import { ArrowDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
+import { GradientMesh } from "./GradientMesh";
 
-export function Hero() {
-  const scrollToWork = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    document.getElementById("palestras")?.scrollIntoView({ behavior: "smooth" });
-  };
-
+export default function Hero() {
   const scrollToContact = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     document.getElementById("contato")?.scrollIntoView({ behavior: "smooth" });
   };
 
-  return (
-    <section id="hero" className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden bg-background pt-20">
-      <ParticleCanvas />
-      
-      {/* Aurora Blobs */}
-      <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-primary/20 rounded-full aurora-blob z-0" />
-      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[teal]/20 rounded-full aurora-blob z-0" style={{ animationDelay: '-5s' }} />
-      
-      {/* Scanlines */}
-      <div className="absolute inset-0 scanlines z-10" />
+  const scrollToPalestras = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    document.getElementById("palestras")?.scrollIntoView({ behavior: "smooth" });
+  };
 
-      <div className="container mx-auto px-6 md:px-12 relative z-20 flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
-        <div className="flex-1 text-center lg:text-left">
-          <motion.h1 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="font-mono font-bold tracking-tighter text-foreground glitch-text mb-4"
-            style={{ fontSize: "clamp(3rem, 8vw, 7rem)", lineHeight: 1.1 }}
-            data-text="GUEDES.AI"
-          >
-            GUEDES.AI
-          </motion.h1>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-          >
-            <h2 className="text-2xl md:text-4xl font-bold mb-4 text-foreground">
-              IA e Inovação para o Futuro
-            </h2>
-            <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto lg:mx-0">
-              Professor-Doutor · Palestrante Internacional · Consultor Estratégico
-            </p>
-            
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-              <a 
-                href="#contato"
-                onClick={scrollToContact}
-                className="bg-primary text-primary-foreground px-8 py-4 font-bold text-lg clipped-corner hover:bg-primary/90 transition-all hover:shadow-[0_0_20px_rgba(45,53,255,0.4)] w-full sm:w-auto text-center"
-                data-testid="button-hero-agendar"
-              >
-                Agende uma Palestra
-              </a>
-              <a 
-                href="#palestras"
-                onClick={scrollToWork}
-                className="bg-transparent border border-border text-foreground px-8 py-4 font-bold text-lg clipped-corner hover:bg-card transition-colors w-full sm:w-auto text-center"
-                data-testid="button-hero-conheca"
-              >
-                Conheça o trabalho
-              </a>
-            </div>
-          </motion.div>
-        </div>
+  const staggerVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: i * 0.1,
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    })
+  };
+
+  return (
+    <section id="hero" className="relative min-h-[100dvh] w-full flex items-center justify-center pt-24 pb-12 px-6">
+      <GradientMesh />
+      
+      <div className="relative z-10 flex flex-col items-center text-center max-w-5xl mx-auto w-full">
         
         <motion.div 
-          className="flex-1 flex justify-center lg:justify-end relative"
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
+          custom={0}
+          initial="hidden"
+          animate="visible"
+          variants={staggerVariants}
+          className="mb-8"
         >
-          <div className="relative">
-            <div className="absolute inset-0 bg-primary/20 blur-[60px] rounded-full scale-110" />
-            <div className="absolute inset-0 bg-[#00C896]/10 blur-[80px] rounded-full scale-125 translate-x-10 translate-y-10" />
-            <img 
-              src="/hero-portrait.png" 
-              alt="Luís Guedes" 
-              className="relative z-10 w-[300px] h-[400px] md:w-[450px] md:h-[600px] object-cover object-center clipped-corner shadow-2xl border border-white/10"
-              style={{
-                boxShadow: "0 0 40px rgba(45,53,255,0.2), inset 0 0 20px rgba(0,200,150,0.2)"
-              }}
-              data-testid="img-hero-portrait"
-            />
-          </div>
+          <span className="inline-block px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-[11px] font-medium tracking-wide text-white/80">
+            ● Pós-Doutor em IA pela FEA/USP
+          </span>
         </motion.div>
+
+        <motion.h1 
+          custom={1}
+          initial="hidden"
+          animate="visible"
+          variants={staggerVariants}
+          className="text-6xl md:text-8xl lg:text-[8rem] font-bold tracking-tight mb-4 gradient-text"
+          style={{ lineHeight: 1.1 }}
+        >
+          Luís Guedes
+        </motion.h1>
+
+        <motion.h2 
+          custom={2}
+          initial="hidden"
+          animate="visible"
+          variants={staggerVariants}
+          className="text-2xl md:text-4xl font-medium tracking-tight mb-6 gradient-text-accent"
+        >
+          IA e Inovação para o Futuro
+        </motion.h2>
+
+        <motion.p 
+          custom={3}
+          initial="hidden"
+          animate="visible"
+          variants={staggerVariants}
+          className="text-lg md:text-xl text-white/50 leading-relaxed mb-10 max-w-2xl"
+        >
+          Professor-Doutor · Palestrante Internacional · Consultor Estratégico
+        </motion.p>
+
+        <motion.div 
+          custom={4}
+          initial="hidden"
+          animate="visible"
+          variants={staggerVariants}
+          className="flex flex-col sm:flex-row items-center gap-4 mb-16 w-full sm:w-auto"
+        >
+          <a 
+            href="#contato"
+            onClick={scrollToContact}
+            className="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-sm px-8 py-3.5 rounded-full transition-all hover:shadow-[inset_0_2px_10px_rgba(255,255,255,0.2)]"
+            data-testid="button-hero-agendar"
+          >
+            Agendar Palestra
+          </a>
+          <a 
+            href="#palestras"
+            onClick={scrollToPalestras}
+            className="w-full sm:w-auto border border-white/10 text-white/80 hover:border-white/20 hover:bg-white/5 text-sm px-8 py-3.5 rounded-full transition-all"
+            data-testid="button-hero-palestras"
+          >
+            Ver Palestras
+          </a>
+        </motion.div>
+
+        <motion.div 
+          custom={5}
+          initial="hidden"
+          animate="visible"
+          variants={staggerVariants}
+          className="flex flex-wrap items-center justify-center gap-6 md:gap-10 text-xs md:text-sm text-white/40"
+        >
+          <span>● 100+ Palestras</span>
+          <span>● 30+ Anos</span>
+          <span>● 5 países</span>
+        </motion.div>
+
       </div>
-      
+
       <motion.div 
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 text-muted-foreground"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 1 }}
+        transition={{ delay: 1.2, duration: 1 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/30 animate-bounce"
       >
-        <ArrowDown className="w-8 h-8 animate-bounce" />
+        <ChevronDown className="w-6 h-6" />
       </motion.div>
     </section>
   );

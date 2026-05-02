@@ -1,52 +1,25 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Link } from "wouter";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
 const navLinks = [
   { name: "Palestras", href: "#palestras" },
   { name: "Trajetória", href: "#trajetoria" },
+  { name: "Publicações", href: "#publicacoes" },
   { name: "Soluções", href: "#solucoes" },
+  { name: "Depoimentos", href: "#depoimentos" },
   { name: "Newsletter", href: "#newsletter" },
   { name: "Contato", href: "#contato" },
 ];
 
-export function Nav() {
+export default function Nav() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("");
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const observers = navLinks.map((link) => {
-      const element = document.getElementById(link.href.replace("#", ""));
-      if (!element) return null;
-
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              setActiveSection(link.href);
-            }
-          });
-        },
-        { threshold: 0.5 }
-      );
-      observer.observe(element);
-      return { element, observer };
-    });
-
-    return () => {
-      observers.forEach((obs) => {
-        if (obs) obs.observer.unobserve(obs.element);
-      });
-    };
   }, []);
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -61,42 +34,38 @@ export function Nav() {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-background/80 backdrop-blur-md border-b border-border py-4" : "bg-transparent py-6"
+        isScrolled ? "bg-[#09090B]/80 backdrop-blur-md border-b border-white/[0.06] py-4" : "bg-transparent py-6"
       }`}
     >
-      <div className="container mx-auto px-6 md:px-12 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         <a
           href="#"
           onClick={(e) => scrollToSection(e, "#hero")}
-          className="font-mono font-bold text-xl tracking-tighter glitch-text text-foreground hover:text-primary transition-colors"
-          data-text="GUEDES.AI"
+          className="font-bold text-white tracking-tight hover:text-indigo-400 transition-colors"
           data-testid="link-logo"
         >
           GUEDES.AI
         </a>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center space-x-8">
-          <ul className="flex items-center space-x-6">
+        <div className="hidden lg:flex items-center gap-8">
+          <div className="flex items-center gap-6">
             {navLinks.map((link) => (
-              <li key={link.name}>
-                <a
-                  href={link.href}
-                  onClick={(e) => scrollToSection(e, link.href)}
-                  className={`text-sm font-medium transition-colors ${
-                    activeSection === link.href ? "text-primary" : "text-muted-foreground hover:text-foreground"
-                  }`}
-                  data-testid={`link-nav-${link.name.toLowerCase()}`}
-                >
-                  {link.name}
-                </a>
-              </li>
+              <a
+                key={link.name}
+                href={link.href}
+                onClick={(e) => scrollToSection(e, link.href)}
+                className="text-sm font-medium text-white/70 hover:text-white transition-colors"
+                data-testid={`link-nav-${link.name.toLowerCase().replace("ç", "c").replace("õ", "o")}`}
+              >
+                {link.name}
+              </a>
             ))}
-          </ul>
+          </div>
           <a
             href="#contato"
             onClick={(e) => scrollToSection(e, "#contato")}
-            className="bg-primary text-primary-foreground px-6 py-2 text-sm font-bold clipped-corner hover:bg-primary/90 transition-colors"
+            className="bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-sm px-5 py-2.5 rounded-full transition-all"
             data-testid="button-nav-agendar"
           >
             Agendar Palestra
@@ -105,40 +74,45 @@ export function Nav() {
 
         {/* Mobile Menu Toggle */}
         <button
-          className="md:hidden text-foreground"
+          className="lg:hidden text-white/80 hover:text-white transition-colors"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           data-testid="button-mobile-menu"
         >
-          {mobileMenuOpen ? <X /> : <Menu />}
+          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
       </div>
 
       {/* Mobile Nav */}
-      {mobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-background border-b border-border py-4 px-6 flex flex-col space-y-4">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              onClick={(e) => scrollToSection(e, link.href)}
-              className={`text-lg font-medium transition-colors ${
-                activeSection === link.href ? "text-primary" : "text-muted-foreground hover:text-foreground"
-              }`}
-              data-testid={`link-mobile-nav-${link.name.toLowerCase()}`}
-            >
-              {link.name}
-            </a>
-          ))}
-          <a
-            href="#contato"
-            onClick={(e) => scrollToSection(e, "#contato")}
-            className="bg-primary text-primary-foreground px-6 py-3 text-center text-sm font-bold clipped-corner hover:bg-primary/90 transition-colors"
-            data-testid="button-mobile-nav-agendar"
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="lg:hidden bg-[#09090B] border-b border-white/[0.06] overflow-hidden"
           >
-            Agendar Palestra
-          </a>
-        </div>
-      )}
+            <div className="px-6 py-6 flex flex-col gap-4">
+              {navLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={(e) => scrollToSection(e, link.href)}
+                  className="text-base font-medium text-white/70 hover:text-white transition-colors"
+                >
+                  {link.name}
+                </a>
+              ))}
+              <a
+                href="#contato"
+                onClick={(e) => scrollToSection(e, "#contato")}
+                className="bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-center text-sm px-5 py-3 rounded-full transition-all mt-4"
+              >
+                Agendar Palestra
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }

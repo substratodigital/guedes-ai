@@ -1,44 +1,33 @@
-import React from "react";
-import { FaWhatsapp, FaLinkedin, FaEnvelope, FaGlobe } from "react-icons/fa";
+import { FaWhatsapp, FaLinkedin, FaEnvelope } from "react-icons/fa";
+import { Globe } from "lucide-react";
 
-export function Footer() {
+export default function Footer() {
   return (
-    <footer className="bg-[#050714] border-t border-border pt-16 pb-8 text-muted-foreground">
-      <div className="container mx-auto px-6 md:px-12">
-        <div className="flex flex-col md:flex-row justify-between items-center md:items-start gap-8 mb-12">
-          
-          <div className="text-center md:text-left">
-            <h3 className="font-mono font-bold text-2xl tracking-tighter text-foreground mb-2">
-              GUEDES.AI
-            </h3>
-            <p className="text-sm">IA e Inovação para o Futuro</p>
-            <p className="text-sm">São Paulo, Brasil</p>
-          </div>
-
-          <div className="flex space-x-6">
-            <a href="https://wa.me/5511999587672" target="_blank" rel="noopener noreferrer" className="hover:text-[#25D366] transition-colors" aria-label="WhatsApp">
-              <FaWhatsapp className="w-6 h-6" />
-            </a>
-            <a href="https://linkedin.com/in/lguedes/" target="_blank" rel="noopener noreferrer" className="hover:text-[#0A66C2] transition-colors" aria-label="LinkedIn">
-              <FaLinkedin className="w-6 h-6" />
-            </a>
-            <a href="mailto:lguedes.sp@gmail.com" className="hover:text-primary transition-colors" aria-label="Email">
-              <FaEnvelope className="w-6 h-6" />
-            </a>
-            <a href="https://knp.com.br" target="_blank" rel="noopener noreferrer" className="hover:text-[#00C896] transition-colors" aria-label="KNP Website">
-              <FaGlobe className="w-6 h-6" />
-            </a>
-          </div>
-
-        </div>
-
-        <div className="border-t border-border/50 pt-8 flex flex-col md:flex-row justify-between items-center text-xs">
-          <p>© {new Date().getFullYear()} Luís Fernando Ascensão Guedes.</p>
-          <div className="flex space-x-4 mt-4 md:mt-0">
-            <a href="#" className="hover:text-foreground transition-colors">Termos de Uso</a>
-            <a href="#" className="hover:text-foreground transition-colors">Privacidade</a>
+    <footer className="w-full py-12 px-6 bg-[#09090B] border-t border-white/[0.06]">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+        
+        <div className="flex flex-col items-center md:items-start gap-2">
+          <div className="font-bold text-white tracking-tight">GUEDES.AI</div>
+          <div className="text-[11px] text-white/40 uppercase tracking-widest">
+            © {new Date().getFullYear()} Luís Fernando Ascensão Guedes
           </div>
         </div>
+
+        <div className="flex items-center gap-6">
+          <a href="https://wa.me/5511999587672" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-colors">
+            <FaWhatsapp className="w-5 h-5" />
+          </a>
+          <a href="https://linkedin.com/in/lguedes" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-colors">
+            <FaLinkedin className="w-5 h-5" />
+          </a>
+          <a href="mailto:lguedes.sp@gmail.com" className="text-white/40 hover:text-white transition-colors">
+            <FaEnvelope className="w-5 h-5" />
+          </a>
+          <a href="https://knp.com.br" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-colors">
+            <Globe className="w-5 h-5" />
+          </a>
+        </div>
+
       </div>
     </footer>
   );

@@ -1,178 +1,185 @@
-import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CheckCircle2, MessageSquare } from "lucide-react";
-import { FaWhatsapp, FaLinkedin, FaEnvelope, FaGlobe } from "react-icons/fa";
+import * as z from "zod";
+import { MessageSquare, Phone, Mail, Linkedin, Globe } from "lucide-react";
 
-const contactSchema = z.object({
+const formSchema = z.object({
   name: z.string().min(2, "Nome é obrigatório"),
   company: z.string().min(2, "Empresa é obrigatória"),
-  demandType: z.string().min(1, "Selecione o tipo de demanda"),
-  message: z.string().min(10, "Mensagem muito curta")
+  type: z.string().min(1, "Selecione um tipo"),
+  message: z.string().min(10, "Mensagem deve ter no mínimo 10 caracteres"),
 });
 
-type ContactFormData = z.infer<typeof contactSchema>;
+type FormValues = z.infer<typeof formSchema>;
 
-export function Contato() {
-  const [isSubmitted, setIsSubmitted] = useState(false);
+export default function Contato() {
+  const [success, setSuccess] = useState(false);
   
-  const form = useForm<ContactFormData>({
-    resolver: zodResolver(contactSchema),
+  const form = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
       company: "",
-      demandType: "",
-      message: ""
-    }
+      type: "",
+      message: "",
+    },
   });
 
-  const onSubmit = (data: ContactFormData) => {
-    // Simulate API call
-    console.log("Form data:", data);
-    setTimeout(() => {
-      setIsSubmitted(true);
-    }, 1000);
+  const onSubmit = async (data: FormValues) => {
+    // Simulate API delay
+    await new Promise((resolve) => setTimeout(resolve, 800));
+    console.log(data);
+    setSuccess(true);
+    form.reset();
   };
 
   return (
-    <section id="contato" className="py-24 relative overflow-hidden bg-background">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-primary/20 via-background to-background pointer-events-none" />
-      
-      <div className="container mx-auto px-6 md:px-12 relative z-10">
-        <div className="flex flex-col lg:flex-row gap-16 items-start">
-          
-          {/* Text Left */}
-          <div className="flex-1 space-y-8">
-            <h2 className="font-mono text-4xl md:text-6xl font-bold text-foreground leading-tight">
-              HÁ MUITO O QUE FAZER.<br/>
-              <span className="text-primary">VAMOS JUNTOS!</span>
-            </h2>
-            <p className="text-xl md:text-2xl text-muted-foreground font-serif italic">
-              Comecemos com um café.
-            </p>
-
-            <div className="space-y-6 pt-8">
-              <a href="https://wa.me/5511999587672" target="_blank" rel="noopener noreferrer" className="flex items-center text-lg text-foreground hover:text-[#25D366] transition-colors group">
-                <div className="w-12 h-12 flex items-center justify-center bg-card border border-border rounded-sm mr-4 group-hover:border-[#25D366] transition-colors">
-                  <FaWhatsapp className="w-6 h-6" />
-                </div>
-                (11) 99958-7672
-              </a>
-              <a href="mailto:lguedes.sp@gmail.com" className="flex items-center text-lg text-foreground hover:text-primary transition-colors group">
-                <div className="w-12 h-12 flex items-center justify-center bg-card border border-border rounded-sm mr-4 group-hover:border-primary transition-colors">
-                  <FaEnvelope className="w-5 h-5" />
-                </div>
-                lguedes.sp@gmail.com
-              </a>
-              <a href="https://linkedin.com/in/lguedes/" target="_blank" rel="noopener noreferrer" className="flex items-center text-lg text-foreground hover:text-[#0A66C2] transition-colors group">
-                <div className="w-12 h-12 flex items-center justify-center bg-card border border-border rounded-sm mr-4 group-hover:border-[#0A66C2] transition-colors">
-                  <FaLinkedin className="w-6 h-6" />
-                </div>
-                linkedin.com/in/lguedes/
-              </a>
-              <a href="https://knp.com.br" target="_blank" rel="noopener noreferrer" className="flex items-center text-lg text-foreground hover:text-[#00C896] transition-colors group">
-                <div className="w-12 h-12 flex items-center justify-center bg-card border border-border rounded-sm mr-4 group-hover:border-[#00C896] transition-colors">
-                  <FaGlobe className="w-5 h-5" />
-                </div>
-                knp.com.br
-              </a>
-            </div>
+    <section id="contato" className="w-full py-32 px-6 bg-[#0A0A0C] border-t border-white/[0.04]">
+      <div className="max-w-7xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="mb-16"
+        >
+          <div className="text-[11px] uppercase tracking-[0.2em] text-indigo-400 font-bold mb-4">
+            CONTATO
           </div>
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-4">
+            Há muito o que fazer. Vamos juntos.
+          </h2>
+          <p className="text-lg text-white/50">
+            Comece com uma conversa.
+          </p>
+        </motion.div>
 
-          {/* Form Right */}
-          <div className="flex-1 w-full max-w-xl mx-auto lg:mx-0">
-            <div className="bg-card p-8 border border-card-border rounded-sm relative shadow-2xl">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-[#00C896]" />
-              
-              {isSubmitted ? (
-                <div className="py-16 text-center flex flex-col items-center space-y-4">
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                  >
-                    <CheckCircle2 className="w-20 h-20 text-[#00C896]" />
-                  </motion.div>
-                  <h3 className="text-2xl font-bold font-mono text-foreground">Mensagem Enviada!</h3>
-                  <p className="text-muted-foreground">Retornaremos o contato em breve.</p>
-                  <button 
-                    onClick={() => setIsSubmitted(false)}
-                    className="mt-8 text-primary hover:underline font-mono text-sm"
-                  >
-                    Enviar nova mensagem
-                  </button>
-                </div>
-              ) : (
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                  <div>
-                    <label className="block text-sm font-mono text-muted-foreground mb-2">Nome completo</label>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+          
+          {/* Left: Contact Info */}
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
+            className="flex flex-col gap-6"
+          >
+            <a href="https://wa.me/5511999587672" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 py-4 border-b border-white/[0.04] group">
+              <Phone className="w-5 h-5 text-white/40 group-hover:text-indigo-400 transition-colors" />
+              <div className="flex flex-col">
+                <span className="text-xs font-medium text-white/40 uppercase tracking-widest mb-1">WhatsApp</span>
+                <span className="text-sm font-medium text-white/80 group-hover:text-white transition-colors">(11) 99958-7672</span>
+              </div>
+            </a>
+            
+            <a href="mailto:lguedes.sp@gmail.com" className="flex items-center gap-4 py-4 border-b border-white/[0.04] group">
+              <Mail className="w-5 h-5 text-white/40 group-hover:text-indigo-400 transition-colors" />
+              <div className="flex flex-col">
+                <span className="text-xs font-medium text-white/40 uppercase tracking-widest mb-1">Email</span>
+                <span className="text-sm font-medium text-white/80 group-hover:text-white transition-colors">lguedes.sp@gmail.com</span>
+              </div>
+            </a>
+
+            <a href="https://linkedin.com/in/lguedes" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 py-4 border-b border-white/[0.04] group">
+              <Linkedin className="w-5 h-5 text-white/40 group-hover:text-indigo-400 transition-colors" />
+              <div className="flex flex-col">
+                <span className="text-xs font-medium text-white/40 uppercase tracking-widest mb-1">LinkedIn</span>
+                <span className="text-sm font-medium text-white/80 group-hover:text-white transition-colors">linkedin.com/in/lguedes</span>
+              </div>
+            </a>
+
+            <a href="https://knp.com.br" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 py-4 border-b border-white/[0.04] group">
+              <Globe className="w-5 h-5 text-white/40 group-hover:text-indigo-400 transition-colors" />
+              <div className="flex flex-col">
+                <span className="text-xs font-medium text-white/40 uppercase tracking-widest mb-1">KNP</span>
+                <span className="text-sm font-medium text-white/80 group-hover:text-white transition-colors">knp.com.br</span>
+              </div>
+            </a>
+          </motion.div>
+
+          {/* Right: Form */}
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
+          >
+            {success ? (
+              <div className="h-full flex flex-col items-center justify-center py-12 px-6 bg-white/[0.02] border border-white/[0.04] rounded-2xl text-center">
+                <MessageSquare className="w-12 h-12 text-indigo-400 mb-6" />
+                <h3 className="text-2xl font-bold text-white mb-2">Mensagem enviada</h3>
+                <p className="text-white/50 mb-8">Obrigado pelo contato. Retornarei em breve.</p>
+                <button 
+                  onClick={() => setSuccess(false)}
+                  className="text-sm font-medium text-indigo-400 hover:text-indigo-300 transition-colors"
+                >
+                  Enviar nova mensagem
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <div className="flex flex-col gap-2">
+                    <label className="text-xs font-medium text-white/50">Nome</label>
                     <input 
                       {...form.register("name")}
-                      className="w-full bg-background border border-input px-4 py-3 rounded-sm text-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+                      className="w-full bg-white/[0.03] border border-white/[0.08] rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none focus:border-indigo-500/50 transition-colors"
                       placeholder="Seu nome"
                     />
-                    {form.formState.errors.name && <span className="text-destructive text-xs mt-1 block">{form.formState.errors.name.message}</span>}
+                    {form.formState.errors.name && <span className="text-[10px] text-red-400">{form.formState.errors.name.message}</span>}
                   </div>
-
-                  <div>
-                    <label className="block text-sm font-mono text-muted-foreground mb-2">Empresa</label>
+                  
+                  <div className="flex flex-col gap-2">
+                    <label className="text-xs font-medium text-white/50">Empresa</label>
                     <input 
                       {...form.register("company")}
-                      className="w-full bg-background border border-input px-4 py-3 rounded-sm text-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
-                      placeholder="Sua organização"
+                      className="w-full bg-white/[0.03] border border-white/[0.08] rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none focus:border-indigo-500/50 transition-colors"
+                      placeholder="Sua empresa"
                     />
-                    {form.formState.errors.company && <span className="text-destructive text-xs mt-1 block">{form.formState.errors.company.message}</span>}
+                    {form.formState.errors.company && <span className="text-[10px] text-red-400">{form.formState.errors.company.message}</span>}
                   </div>
+                </div>
 
-                  <div>
-                    <label className="block text-sm font-mono text-muted-foreground mb-2">Tipo de demanda</label>
-                    <div className="relative">
-                      <select 
-                        {...form.register("demandType")}
-                        className="w-full bg-background border border-input px-4 py-3 rounded-sm text-foreground appearance-none focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
-                      >
-                        <option value="">Selecione...</option>
-                        <option value="palestra">Palestra</option>
-                        <option value="consultoria">Consultoria</option>
-                        <option value="mentoria">Mentoria</option>
-                        <option value="pesquisa">Pesquisa</option>
-                        <option value="outro">Outro</option>
-                      </select>
-                      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground">▼</div>
-                    </div>
-                    {form.formState.errors.demandType && <span className="text-destructive text-xs mt-1 block">{form.formState.errors.demandType.message}</span>}
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-mono text-muted-foreground mb-2">Mensagem</label>
-                    <textarea 
-                      {...form.register("message")}
-                      className="w-full bg-background border border-input px-4 py-3 rounded-sm text-foreground h-32 resize-none focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
-                      placeholder="Como posso ajudar?"
-                    />
-                    {form.formState.errors.message && <span className="text-destructive text-xs mt-1 block">{form.formState.errors.message.message}</span>}
-                  </div>
-
-                  <button 
-                    type="submit" 
-                    disabled={form.formState.isSubmitting}
-                    className="w-full bg-primary text-primary-foreground font-bold text-lg py-4 clipped-corner hover:bg-primary/90 transition-all flex items-center justify-center disabled:opacity-50"
-                    data-testid="button-submit-contact"
+                <div className="flex flex-col gap-2">
+                  <label className="text-xs font-medium text-white/50">Tipo</label>
+                  <select 
+                    {...form.register("type")}
+                    className="w-full bg-white/[0.03] border border-white/[0.08] rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-indigo-500/50 transition-colors appearance-none"
                   >
-                    {form.formState.isSubmitting ? (
-                      <span className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
-                    ) : (
-                      <>
-                        <MessageSquare className="w-5 h-5 mr-2" />
-                        Enviar Mensagem
-                      </>
-                    )}
-                  </button>
-                </form>
-              )}
-            </div>
-          </div>
+                    <option value="" className="bg-[#0A0A0C]">Selecione o assunto...</option>
+                    <option value="Palestra" className="bg-[#0A0A0C]">Palestra</option>
+                    <option value="Consultoria" className="bg-[#0A0A0C]">Consultoria</option>
+                    <option value="Mentoria" className="bg-[#0A0A0C]">Mentoria</option>
+                    <option value="Pesquisa" className="bg-[#0A0A0C]">Pesquisa</option>
+                    <option value="Outro" className="bg-[#0A0A0C]">Outro</option>
+                  </select>
+                  {form.formState.errors.type && <span className="text-[10px] text-red-400">{form.formState.errors.type.message}</span>}
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <label className="text-xs font-medium text-white/50">Mensagem</label>
+                  <textarea 
+                    {...form.register("message")}
+                    rows={5}
+                    className="w-full bg-white/[0.03] border border-white/[0.08] rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none focus:border-indigo-500/50 transition-colors resize-none"
+                    placeholder="Como posso ajudar?"
+                  />
+                  {form.formState.errors.message && <span className="text-[10px] text-red-400">{form.formState.errors.message.message}</span>}
+                </div>
+
+                <button 
+                  type="submit"
+                  disabled={form.formState.isSubmitting}
+                  className="w-full bg-white text-black font-medium text-sm px-5 py-3.5 rounded-xl hover:bg-white/90 transition-all mt-2 disabled:opacity-50"
+                  data-testid="button-submit"
+                >
+                  {form.formState.isSubmitting ? "Enviando..." : "Enviar mensagem"}
+                </button>
+              </form>
+            )}
+          </motion.div>
         </div>
       </div>
     </section>

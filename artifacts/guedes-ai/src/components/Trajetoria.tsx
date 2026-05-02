@@ -1,37 +1,32 @@
-import React, { useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Briefcase, GraduationCap, Building2 } from "lucide-react";
-
-const tabs = [
-  { id: "experiencia", label: "Experiência", icon: <Briefcase className="w-4 h-4 mr-2" /> },
-  { id: "educacao", label: "Educação", icon: <GraduationCap className="w-4 h-4 mr-2" /> },
-  { id: "institucional", label: "Atuação Institucional", icon: <Building2 className="w-4 h-4 mr-2" /> },
-];
+import { useState, useRef } from "react";
 
 const timelineData = {
   experiencia: [
-    { year: "Desde 2015", title: "Consultor Estratégico", org: "FIA Consulting", desc: "30+ projetos para governos e grandes empresas" },
-    { year: "Desde 2009", title: "Professor-Doutor em IA, Inovação e Criatividade", org: "FIA Business School / Albert Einstein", desc: "19 prêmios de excelência didática" },
-    { year: "2011–2012", title: "Head FP&A Latam", org: "Google", desc: "Liderança financeira para a América Latina" },
+    { year: "2015–hoje", role: "Consultor Estratégico", org: "FIA Consulting", desc: "30+ projetos para governos e grandes empresas" },
+    { year: "2009–hoje", role: "Professor-Doutor", org: "FIA/Einstein", desc: "IA, Inovação e Criatividade" },
+    { year: "2011–2012", role: "Head FP&A Latam", org: "Google", desc: "Liderança financeira para a América Latina" },
   ],
-  educacao: [
-    { year: "2022–2024", title: "Pós-Doutorado em IA", org: "FEA/USP", desc: "" },
-    { year: "2008–2012", title: "Doutorado em Inovação", org: "FEA/USP", desc: "" },
-    { year: "2007", title: "MBA Executivo Internacional", org: "FIA", desc: "Módulos em Cambridge, Lyon, Vanderbilt" },
-    { year: "2002–2004", title: "Mestrado em Gestão de Operações", org: "FGV/EAESP", desc: "" },
-    { year: "1990–1995", title: "Engenharia de Computadores", org: "FEI", desc: "" },
+  formacao: [
+    { year: "2022–2024", role: "Pós-Doc IA", org: "FEA/USP", desc: "" },
+    { year: "2008–2012", role: "Doutorado Inovação", org: "FEA/USP", desc: "" },
+    { year: "2007", role: "MBA Internacional", org: "FIA", desc: "Módulos em Cambridge, Lyon, Vanderbilt" },
+    { year: "2002–2004", role: "MSc Operações", org: "FGV/EAESP", desc: "" },
+    { year: "1990–1995", role: "Eng. Computadores", org: "FEI", desc: "" },
   ],
   institucional: [
-    { year: "Desde 2025", title: "Consultor", org: "Comissão Brasileira de IA da ABNT", desc: "" },
-    { year: "Desde 2023", title: "Conselheiro", org: "Prefeitura de SP para Políticas Climáticas", desc: "" },
-    { year: "Desde 2023", title: "Membro", org: "Comissão de Tecnologia Quântica da ABNT", desc: "" },
-    { year: "2023–2025", title: "Articulista de Inovação", org: "Revista Isto É Dinheiro", desc: "" },
+    { year: "2025–", role: "Consultor", org: "ABNT IA", desc: "" },
+    { year: "2023–", role: "Conselheiro", org: "Pref SP Clima", desc: "" },
+    { year: "2023–", role: "Membro", org: "Comissão Tecnologia Quântica ABNT", desc: "" },
+    { year: "2023–2025", role: "Articulista", org: "Isto É Dinheiro", desc: "" },
   ]
 };
 
-export function Trajetoria() {
-  const [activeTab, setActiveTab] = useState<keyof typeof timelineData>("experiencia");
-  const containerRef = React.useRef<HTMLDivElement>(null);
+type TabKey = keyof typeof timelineData;
+
+export default function Trajetoria() {
+  const [activeTab, setActiveTab] = useState<TabKey>("experiencia");
+  const containerRef = useRef<HTMLDivElement>(null);
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -41,67 +36,79 @@ export function Trajetoria() {
   const scaleY = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   return (
-    <section id="trajetoria" className="py-24 bg-[#0A0E27] relative overflow-hidden">
-      <div className="absolute inset-0 scanlines opacity-50" />
-      
-      <div className="container mx-auto px-6 md:px-12 relative z-10">
-        <h2 className="font-mono text-3xl md:text-5xl font-bold text-foreground mb-12 text-center">
-          Trajetória
-        </h2>
+    <section className="w-full py-32 px-6">
+      <div className="max-w-4xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="mb-12"
+        >
+          <div className="text-[11px] uppercase tracking-[0.2em] text-indigo-400 font-bold mb-4">
+            TRAJETÓRIA
+          </div>
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-10">
+            Uma Carreira em Dois Mundos
+          </h2>
 
-        <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-16">
-          {tabs.map(tab => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id as any)}
-              className={`flex items-center px-6 py-3 text-sm md:text-base font-medium rounded-sm border transition-all ${
-                activeTab === tab.id 
-                  ? "bg-primary/20 border-primary text-primary shadow-[0_0_15px_rgba(45,53,255,0.3)]" 
-                  : "bg-card border-card-border text-muted-foreground hover:border-primary/50 hover:text-foreground"
-              }`}
-              data-testid={`tab-${tab.id}`}
-            >
-              {tab.icon}
-              {tab.label}
-            </button>
-          ))}
-        </div>
+          <div className="flex flex-wrap gap-6 border-b border-white/[0.08]">
+            {(Object.keys(timelineData) as TabKey[]).map((key) => (
+              <button
+                key={key}
+                onClick={() => setActiveTab(key)}
+                className={`pb-4 text-sm font-medium transition-colors relative ${
+                  activeTab === key ? "text-indigo-400" : "text-white/50 hover:text-white/80"
+                }`}
+              >
+                {key.charAt(0).toUpperCase() + key.slice(1)}
+                {activeTab === key && (
+                  <motion.div
+                    layoutId="activeTab"
+                    className="absolute bottom-0 left-0 right-0 h-[2px] bg-indigo-500"
+                  />
+                )}
+              </button>
+            ))}
+          </div>
+        </motion.div>
 
-        <div className="max-w-4xl mx-auto relative" ref={containerRef}>
-          {/* Central Line */}
-          <div className="absolute left-[20px] md:left-1/2 top-0 bottom-0 w-px bg-border -translate-x-1/2" />
+        <div className="relative pt-8 pb-16" ref={containerRef}>
+          <div className="absolute left-0 top-8 bottom-16 w-px bg-white/[0.08]" />
           <motion.div 
-            className="absolute left-[20px] md:left-1/2 top-0 bottom-0 w-[3px] bg-primary -translate-x-1/2 origin-top"
+            className="absolute left-0 top-8 bottom-16 w-px bg-indigo-500 origin-top"
             style={{ scaleY }}
           />
 
-          <div className="space-y-12">
-            {timelineData[activeTab].map((item, index) => {
-              const isEven = index % 2 === 0;
-              return (
-                <motion.div 
-                  key={`${activeTab}-${index}`}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.5 }}
-                  className={`relative flex md:justify-between items-center ${isEven ? 'md:flex-row-reverse' : ''}`}
-                >
-                  {/* Connector Dot */}
-                  <div className="absolute left-[20px] md:left-1/2 w-4 h-4 bg-background border-2 border-primary rounded-full -translate-x-1/2 z-10 shadow-[0_0_10px_rgba(45,53,255,0.8)]" />
-                  
-                  {/* Content Card */}
-                  <div className={`w-[calc(100%-50px)] ml-[50px] md:ml-0 md:w-[calc(50%-40px)] ${isEven ? 'md:text-left' : 'md:text-right'}`}>
-                    <div className="bg-card p-6 border border-card-border rounded-sm hover:border-primary/50 transition-colors">
-                      <span className="font-mono text-primary font-bold text-sm md:text-base mb-2 block">{item.year}</span>
-                      <h3 className="text-xl font-bold text-foreground mb-1">{item.title}</h3>
-                      <p className="text-muted-foreground font-medium mb-2">{item.org}</p>
-                      {item.desc && <p className="text-sm text-muted-foreground/80">{item.desc}</p>}
-                    </div>
+          <div className="space-y-10">
+            {timelineData[activeTab].map((item, index) => (
+              <motion.div 
+                key={`${activeTab}-${index}`}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.1, ease: "easeOut" }}
+                className="relative pl-8"
+              >
+                <div className="absolute left-[-4px] top-1.5 w-[9px] h-[9px] rounded-full bg-background border-2 border-indigo-500" />
+                <div className="flex flex-col items-start gap-1">
+                  <span className="text-xs font-mono text-white/40 mb-1 bg-white/[0.03] border border-white/5 px-2 py-0.5 rounded-md">
+                    {item.year}
+                  </span>
+                  <h3 className="text-base font-semibold text-white">
+                    {item.role}
+                  </h3>
+                  <div className="text-sm font-medium text-indigo-400 mb-1">
+                    {item.org}
                   </div>
-                </motion.div>
-              );
-            })}
+                  {item.desc && (
+                    <p className="text-sm text-white/50">
+                      {item.desc}
+                    </p>
+                  )}
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </div>
