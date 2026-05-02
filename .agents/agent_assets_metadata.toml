@@ -1,0 +1,26 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "TdwjOoRNVhj9IYdPi8gIv"
+uri = "file://artifacts/guedes-ai/public/hero-portrait.png"
+type = "image"
+title = "Professional speaker portrait"
+
+[[generated]]
+id = "w_w_yl2wxgUnNJTGvxZ_0"
+uri = "file://artifacts/guedes-ai/public/palestra-1.png"
+type = "image"
+title = "AI neural abstract image"
+
+[[generated]]
+id = "IAaIMNEE2vS3f2rQFhELq"
+uri = "file://artifacts/guedes-ai/public/palestra-2.png"
+type = "image"
+title = "Acceleration abstract image"
+
+[[generated]]
+id = "rFA0I575vWh04kKlT8YK-"
+uri = "file://artifacts/guedes-ai/public/palestra-3.png"
+type = "image"
+title = "Journey landscape image"
