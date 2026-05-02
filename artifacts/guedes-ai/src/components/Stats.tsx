@@ -38,7 +38,7 @@ function Counter({ value, suffix }: { value: number; suffix: string }) {
   }, [isInView, value]);
 
   return (
-    <span ref={ref} className="text-teal-400">
+    <span ref={ref} className="text-primary font-mono">
       {count}{suffix}
     </span>
   );
@@ -46,7 +46,7 @@ function Counter({ value, suffix }: { value: number; suffix: string }) {
 
 export default function Stats() {
   return (
-    <section className="w-full py-20 bg-[#0C0C10] border-y border-white/[0.04]">
+    <section className="w-full py-20 bg-muted/30 border-y border-border">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
           {stats.map((stat, i) => (
@@ -61,7 +61,7 @@ export default function Stats() {
               <div className="font-bold text-5xl md:text-6xl mb-2 tracking-tight">
                 <Counter value={stat.value} suffix={stat.suffix} />
               </div>
-              <div className="text-sm font-medium text-white/50 tracking-wide">
+              <div className="text-sm font-medium text-foreground/50 tracking-wide">
                 {stat.label}
               </div>
             </motion.div>

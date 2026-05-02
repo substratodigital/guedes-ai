@@ -45,27 +45,27 @@ export default function Trajetoria() {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="mb-12"
         >
-          <div className="text-[11px] uppercase tracking-[0.2em] text-indigo-400 font-bold mb-4">
+          <div className="text-[11px] uppercase tracking-[0.2em] text-primary font-bold mb-4">
             TRAJETÓRIA
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-10">
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground mb-10">
             Uma Carreira em Dois Mundos
           </h2>
 
-          <div className="flex flex-wrap gap-6 border-b border-white/[0.08]">
+          <div className="flex flex-wrap gap-6 border-b border-border">
             {(Object.keys(timelineData) as TabKey[]).map((key) => (
               <button
                 key={key}
                 onClick={() => setActiveTab(key)}
                 className={`pb-4 text-sm font-medium transition-colors relative ${
-                  activeTab === key ? "text-indigo-400" : "text-white/50 hover:text-white/80"
+                  activeTab === key ? "text-primary" : "text-foreground/50 hover:text-foreground/80"
                 }`}
               >
                 {key.charAt(0).toUpperCase() + key.slice(1)}
                 {activeTab === key && (
                   <motion.div
                     layoutId="activeTab"
-                    className="absolute bottom-0 left-0 right-0 h-[2px] bg-indigo-500"
+                    className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary"
                   />
                 )}
               </button>
@@ -74,9 +74,9 @@ export default function Trajetoria() {
         </motion.div>
 
         <div className="relative pt-8 pb-16" ref={containerRef}>
-          <div className="absolute left-0 top-8 bottom-16 w-px bg-white/[0.08]" />
+          <div className="absolute left-0 top-8 bottom-16 w-px bg-border" />
           <motion.div 
-            className="absolute left-0 top-8 bottom-16 w-px bg-indigo-500 origin-top"
+            className="absolute left-0 top-8 bottom-16 w-px bg-primary origin-top"
             style={{ scaleY }}
           />
 
@@ -90,19 +90,19 @@ export default function Trajetoria() {
                 transition={{ duration: 0.4, delay: index * 0.1, ease: "easeOut" }}
                 className="relative pl-8"
               >
-                <div className="absolute left-[-4px] top-1.5 w-[9px] h-[9px] rounded-full bg-background border-2 border-indigo-500" />
+                <div className="absolute left-[-4px] top-1.5 w-[9px] h-[9px] rounded-full bg-background border-2 border-primary" />
                 <div className="flex flex-col items-start gap-1">
-                  <span className="text-xs font-mono text-white/40 mb-1 bg-white/[0.03] border border-white/5 px-2 py-0.5 rounded-md">
+                  <span className="text-xs font-mono text-foreground/40 mb-1 bg-foreground/[0.04] border border-border px-2 py-0.5 rounded-md">
                     {item.year}
                   </span>
-                  <h3 className="text-base font-semibold text-white">
+                  <h3 className="text-base font-semibold text-foreground">
                     {item.role}
                   </h3>
-                  <div className="text-sm font-medium text-indigo-400 mb-1">
+                  <div className="text-sm font-medium text-primary mb-1">
                     {item.org}
                   </div>
                   {item.desc && (
-                    <p className="text-sm text-white/50">
+                    <p className="text-sm text-foreground/50">
                       {item.desc}
                     </p>
                   )}

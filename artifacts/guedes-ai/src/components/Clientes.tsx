@@ -18,13 +18,13 @@ export default function Clientes() {
           viewport={{ once: true }}
           transition={{ duration: 0.5, ease: "easeOut" }}
         >
-          <div className="text-[11px] uppercase tracking-[0.2em] text-indigo-400 font-bold mb-4">
+          <div className="text-[11px] uppercase tracking-[0.2em] text-primary font-bold mb-4">
             CLIENTES
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-4">
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground mb-4">
             Mais de 100 Organizações Atendidas
           </h2>
-          <p className="text-sm text-white/40">
+          <p className="text-sm text-foreground/40">
             Brasil · EUA · Egito · Colômbia · Espanha
           </p>
         </motion.div>
@@ -38,22 +38,22 @@ export default function Clientes() {
         <div className="flex w-fit animate-marquee">
           {[...row1, ...row1, ...row1].map((client, i) => (
             <div key={i} className="flex items-center shrink-0">
-              <span className="text-sm font-medium text-white/50 hover:text-white/90 transition-colors px-8 whitespace-nowrap cursor-default">
+              <span className="text-sm font-medium text-foreground/50 hover:text-foreground/90 transition-colors px-8 whitespace-nowrap cursor-default">
                 {client}
               </span>
-              <span className="text-white/15 text-xs">/</span>
+              <span className="text-foreground/15 text-xs">/</span>
             </div>
           ))}
         </div>
 
         {/* Row 2: Right Marquee (Reverse) */}
-        <div className="flex w-fit animate-marquee" style={{ animationDirection: "reverse" }}>
+        <div className="flex w-fit animate-marquee-reverse">
           {[...row2, ...row2, ...row2].map((client, i) => (
             <div key={i} className="flex items-center shrink-0">
-              <span className="text-sm font-medium text-white/50 hover:text-white/90 transition-colors px-8 whitespace-nowrap cursor-default">
+              <span className="text-sm font-medium text-foreground/50 hover:text-foreground/90 transition-colors px-8 whitespace-nowrap cursor-default">
                 {client}
               </span>
-              <span className="text-white/15 text-xs">/</span>
+              <span className="text-foreground/15 text-xs">/</span>
             </div>
           ))}
         </div>

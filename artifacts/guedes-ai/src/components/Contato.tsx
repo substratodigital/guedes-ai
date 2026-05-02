@@ -28,7 +28,6 @@ export default function Contato() {
   });
 
   const onSubmit = async (data: FormValues) => {
-    // Simulate API delay
     await new Promise((resolve) => setTimeout(resolve, 800));
     console.log(data);
     setSuccess(true);
@@ -36,7 +35,7 @@ export default function Contato() {
   };
 
   return (
-    <section id="contato" className="w-full py-32 px-6 bg-[#0A0A0C] border-t border-white/[0.04]">
+    <section id="contato" className="w-full py-32 px-6 bg-muted/20 border-t border-border">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -45,13 +44,13 @@ export default function Contato() {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="mb-16"
         >
-          <div className="text-[11px] uppercase tracking-[0.2em] text-indigo-400 font-bold mb-4">
+          <div className="text-[11px] uppercase tracking-[0.2em] text-primary font-bold mb-4">
             CONTATO
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-4">
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground mb-4">
             Há muito o que fazer. Vamos juntos.
           </h2>
-          <p className="text-lg text-white/50">
+          <p className="text-lg text-foreground/50">
             Comece com uma conversa.
           </p>
         </motion.div>
@@ -66,35 +65,35 @@ export default function Contato() {
             transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
             className="flex flex-col gap-6"
           >
-            <a href="https://wa.me/5511999587672" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 py-4 border-b border-white/[0.04] group">
-              <Phone className="w-5 h-5 text-white/40 group-hover:text-indigo-400 transition-colors" />
+            <a href="https://wa.me/5511999587672" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 py-4 border-b border-border group">
+              <Phone className="w-5 h-5 text-foreground/40 group-hover:text-primary transition-colors" />
               <div className="flex flex-col">
-                <span className="text-xs font-medium text-white/40 uppercase tracking-widest mb-1">WhatsApp</span>
-                <span className="text-sm font-medium text-white/80 group-hover:text-white transition-colors">(11) 99958-7672</span>
+                <span className="text-xs font-medium text-foreground/40 uppercase tracking-widest mb-1">WhatsApp</span>
+                <span className="text-sm font-medium text-foreground/80 group-hover:text-foreground transition-colors">(11) 99958-7672</span>
               </div>
             </a>
             
-            <a href="mailto:lguedes.sp@gmail.com" className="flex items-center gap-4 py-4 border-b border-white/[0.04] group">
-              <Mail className="w-5 h-5 text-white/40 group-hover:text-indigo-400 transition-colors" />
+            <a href="mailto:lguedes.sp@gmail.com" className="flex items-center gap-4 py-4 border-b border-border group">
+              <Mail className="w-5 h-5 text-foreground/40 group-hover:text-primary transition-colors" />
               <div className="flex flex-col">
-                <span className="text-xs font-medium text-white/40 uppercase tracking-widest mb-1">Email</span>
-                <span className="text-sm font-medium text-white/80 group-hover:text-white transition-colors">lguedes.sp@gmail.com</span>
+                <span className="text-xs font-medium text-foreground/40 uppercase tracking-widest mb-1">Email</span>
+                <span className="text-sm font-medium text-foreground/80 group-hover:text-foreground transition-colors">lguedes.sp@gmail.com</span>
               </div>
             </a>
 
-            <a href="https://linkedin.com/in/lguedes" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 py-4 border-b border-white/[0.04] group">
-              <Linkedin className="w-5 h-5 text-white/40 group-hover:text-indigo-400 transition-colors" />
+            <a href="https://linkedin.com/in/lguedes" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 py-4 border-b border-border group">
+              <Linkedin className="w-5 h-5 text-foreground/40 group-hover:text-primary transition-colors" />
               <div className="flex flex-col">
-                <span className="text-xs font-medium text-white/40 uppercase tracking-widest mb-1">LinkedIn</span>
-                <span className="text-sm font-medium text-white/80 group-hover:text-white transition-colors">linkedin.com/in/lguedes</span>
+                <span className="text-xs font-medium text-foreground/40 uppercase tracking-widest mb-1">LinkedIn</span>
+                <span className="text-sm font-medium text-foreground/80 group-hover:text-foreground transition-colors">linkedin.com/in/lguedes</span>
               </div>
             </a>
 
-            <a href="https://knp.com.br" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 py-4 border-b border-white/[0.04] group">
-              <Globe className="w-5 h-5 text-white/40 group-hover:text-indigo-400 transition-colors" />
+            <a href="https://knp.com.br" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 py-4 border-b border-border group">
+              <Globe className="w-5 h-5 text-foreground/40 group-hover:text-primary transition-colors" />
               <div className="flex flex-col">
-                <span className="text-xs font-medium text-white/40 uppercase tracking-widest mb-1">KNP</span>
-                <span className="text-sm font-medium text-white/80 group-hover:text-white transition-colors">knp.com.br</span>
+                <span className="text-xs font-medium text-foreground/40 uppercase tracking-widest mb-1">KNP</span>
+                <span className="text-sm font-medium text-foreground/80 group-hover:text-foreground transition-colors">knp.com.br</span>
               </div>
             </a>
           </motion.div>
@@ -107,13 +106,13 @@ export default function Contato() {
             transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
           >
             {success ? (
-              <div className="h-full flex flex-col items-center justify-center py-12 px-6 bg-white/[0.02] border border-white/[0.04] rounded-2xl text-center">
-                <MessageSquare className="w-12 h-12 text-indigo-400 mb-6" />
-                <h3 className="text-2xl font-bold text-white mb-2">Mensagem enviada</h3>
-                <p className="text-white/50 mb-8">Obrigado pelo contato. Retornarei em breve.</p>
+              <div className="h-full flex flex-col items-center justify-center py-12 px-6 bg-card border border-border rounded-2xl text-center">
+                <MessageSquare className="w-12 h-12 text-primary mb-6" />
+                <h3 className="text-2xl font-bold text-foreground mb-2">Mensagem enviada</h3>
+                <p className="text-foreground/50 mb-8">Obrigado pelo contato. Retornarei em breve.</p>
                 <button 
                   onClick={() => setSuccess(false)}
-                  className="text-sm font-medium text-indigo-400 hover:text-indigo-300 transition-colors"
+                  className="text-sm font-medium text-primary hover:text-primary/80 transition-colors"
                 >
                   Enviar nova mensagem
                 </button>
@@ -122,57 +121,57 @@ export default function Contato() {
               <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div className="flex flex-col gap-2">
-                    <label className="text-xs font-medium text-white/50">Nome</label>
+                    <label className="text-xs font-medium text-foreground/50">Nome</label>
                     <input 
                       {...form.register("name")}
-                      className="w-full bg-white/[0.03] border border-white/[0.08] rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none focus:border-indigo-500/50 transition-colors"
+                      className="w-full bg-card border border-border rounded-xl px-4 py-3 text-sm text-foreground placeholder-foreground/30 focus:outline-none focus:border-primary/50 transition-colors"
                       placeholder="Seu nome"
                     />
-                    {form.formState.errors.name && <span className="text-[10px] text-red-400">{form.formState.errors.name.message}</span>}
+                    {form.formState.errors.name && <span className="text-[10px] text-red-500">{form.formState.errors.name.message}</span>}
                   </div>
                   
                   <div className="flex flex-col gap-2">
-                    <label className="text-xs font-medium text-white/50">Empresa</label>
+                    <label className="text-xs font-medium text-foreground/50">Empresa</label>
                     <input 
                       {...form.register("company")}
-                      className="w-full bg-white/[0.03] border border-white/[0.08] rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none focus:border-indigo-500/50 transition-colors"
+                      className="w-full bg-card border border-border rounded-xl px-4 py-3 text-sm text-foreground placeholder-foreground/30 focus:outline-none focus:border-primary/50 transition-colors"
                       placeholder="Sua empresa"
                     />
-                    {form.formState.errors.company && <span className="text-[10px] text-red-400">{form.formState.errors.company.message}</span>}
+                    {form.formState.errors.company && <span className="text-[10px] text-red-500">{form.formState.errors.company.message}</span>}
                   </div>
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label className="text-xs font-medium text-white/50">Tipo</label>
+                  <label className="text-xs font-medium text-foreground/50">Tipo</label>
                   <select 
                     {...form.register("type")}
-                    className="w-full bg-white/[0.03] border border-white/[0.08] rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-indigo-500/50 transition-colors appearance-none"
+                    className="w-full bg-card border border-border rounded-xl px-4 py-3 text-sm text-foreground focus:outline-none focus:border-primary/50 transition-colors appearance-none"
                   >
-                    <option value="" className="bg-[#0A0A0C]">Selecione o assunto...</option>
-                    <option value="Palestra" className="bg-[#0A0A0C]">Palestra</option>
-                    <option value="Consultoria" className="bg-[#0A0A0C]">Consultoria</option>
-                    <option value="Mentoria" className="bg-[#0A0A0C]">Mentoria</option>
-                    <option value="Pesquisa" className="bg-[#0A0A0C]">Pesquisa</option>
-                    <option value="Outro" className="bg-[#0A0A0C]">Outro</option>
+                    <option value="">Selecione o assunto...</option>
+                    <option value="Palestra">Palestra</option>
+                    <option value="Consultoria">Consultoria</option>
+                    <option value="Mentoria">Mentoria</option>
+                    <option value="Pesquisa">Pesquisa</option>
+                    <option value="Outro">Outro</option>
                   </select>
-                  {form.formState.errors.type && <span className="text-[10px] text-red-400">{form.formState.errors.type.message}</span>}
+                  {form.formState.errors.type && <span className="text-[10px] text-red-500">{form.formState.errors.type.message}</span>}
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label className="text-xs font-medium text-white/50">Mensagem</label>
+                  <label className="text-xs font-medium text-foreground/50">Mensagem</label>
                   <textarea 
                     {...form.register("message")}
                     rows={5}
-                    className="w-full bg-white/[0.03] border border-white/[0.08] rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 focus:outline-none focus:border-indigo-500/50 transition-colors resize-none"
+                    className="w-full bg-card border border-border rounded-xl px-4 py-3 text-sm text-foreground placeholder-foreground/30 focus:outline-none focus:border-primary/50 transition-colors resize-none"
                     placeholder="Como posso ajudar?"
                   />
-                  {form.formState.errors.message && <span className="text-[10px] text-red-400">{form.formState.errors.message.message}</span>}
+                  {form.formState.errors.message && <span className="text-[10px] text-red-500">{form.formState.errors.message.message}</span>}
                 </div>
 
                 <button 
                   type="submit"
                   disabled={form.formState.isSubmitting}
-                  className="w-full bg-white text-black font-medium text-sm px-5 py-3.5 rounded-xl hover:bg-white/90 transition-all mt-2 disabled:opacity-50"
+                  className="w-full bg-foreground text-background font-medium text-sm px-5 py-3.5 rounded-xl hover:bg-foreground/90 transition-all mt-2 disabled:opacity-50"
                   data-testid="button-submit"
                 >
                   {form.formState.isSubmitting ? "Enviando..." : "Enviar mensagem"}

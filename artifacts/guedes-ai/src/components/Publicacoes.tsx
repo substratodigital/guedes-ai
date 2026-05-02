@@ -76,7 +76,7 @@ export default function Publicacoes() {
   const filtered = publications.filter(p => filter === "Todos" || p.type === filter);
 
   return (
-    <section id="publicacoes" className="w-full py-32 px-6 bg-[#0A0A0C]">
+    <section id="publicacoes" className="w-full py-32 px-6 bg-muted/30">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -85,10 +85,10 @@ export default function Publicacoes() {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="mb-12"
         >
-          <div className="text-[11px] uppercase tracking-[0.2em] text-indigo-400 font-bold mb-4">
+          <div className="text-[11px] uppercase tracking-[0.2em] text-primary font-bold mb-4">
             PUBLICAÇÕES
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-8">
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground mb-8">
             60+ Artigos · 1 Livro · 4 Capítulos
           </h2>
 
@@ -99,8 +99,8 @@ export default function Publicacoes() {
                 onClick={() => setFilter(f as FilterKey)}
                 className={`text-xs font-medium px-4 py-2 rounded-full transition-all border ${
                   filter === f 
-                    ? "bg-white/10 border-white/20 text-white" 
-                    : "bg-transparent border-transparent text-white/50 hover:text-white/80 hover:bg-white/5"
+                    ? "bg-foreground/10 border-foreground/20 text-foreground" 
+                    : "bg-transparent border-transparent text-foreground/50 hover:text-foreground/80 hover:bg-foreground/[0.05]"
                 }`}
               >
                 {f}
@@ -117,26 +117,26 @@ export default function Publicacoes() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.3, delay: i * 0.05, ease: "easeOut" }}
-              className="bg-[#0F0F13] border border-white/[0.06] rounded-xl p-5 flex flex-col h-full hover:border-white/[0.12] transition-colors group relative"
+              className="bg-card border border-border rounded-xl p-5 flex flex-col h-full hover:border-foreground/20 transition-colors group relative"
             >
               {pub.url && (
-                <a href={pub.url} target="_blank" rel="noopener noreferrer" className="absolute top-4 right-4 text-white/20 group-hover:text-white/50 transition-colors">
+                <a href={pub.url} target="_blank" rel="noopener noreferrer" className="absolute top-4 right-4 text-foreground/20 group-hover:text-foreground/50 transition-colors">
                   <ExternalLink className="w-4 h-4" />
                 </a>
               )}
               <div className="flex items-center gap-3 mb-4">
-                <span className="text-[10px] font-medium text-white/70 bg-white/[0.05] border border-white/[0.08] px-2 py-0.5 rounded-full">
+                <span className="text-[10px] font-medium text-foreground/60 bg-foreground/[0.06] border border-border px-2 py-0.5 rounded-full">
                   {pub.type}
                 </span>
-                <span className="text-xs font-mono text-white/30">
+                <span className="text-xs font-mono text-foreground/35">
                   {pub.year}
                 </span>
               </div>
-              <h3 className="text-sm font-medium text-white/90 leading-snug mb-3">
+              <h3 className="text-sm font-medium text-foreground/90 leading-snug mb-3">
                 {pub.title}
               </h3>
               <div className="mt-auto pt-2">
-                <p className="text-xs text-indigo-400 font-medium">
+                <p className="text-xs text-primary font-medium">
                   {pub.venue}
                 </p>
               </div>
@@ -150,12 +150,12 @@ export default function Publicacoes() {
           viewport={{ once: true }}
           className="mt-12 text-center"
         >
-          <p className="text-sm text-white/40 mb-4">+52 artigos publicados</p>
+          <p className="text-sm text-foreground/40 mb-4">+52 artigos publicados</p>
           <a 
             href="https://www.linkedin.com/in/lguedes/" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="text-sm text-indigo-400 hover:text-indigo-300 transition-colors font-medium"
+            className="text-sm text-primary hover:text-primary/80 transition-colors font-medium"
           >
             Ver todos no Lattes / Google Scholar →
           </a>

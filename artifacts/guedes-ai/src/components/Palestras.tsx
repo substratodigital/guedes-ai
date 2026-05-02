@@ -35,10 +35,10 @@ export default function Palestras() {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="mb-16"
         >
-          <div className="text-[11px] uppercase tracking-[0.2em] text-indigo-400 font-bold mb-4">
+          <div className="text-[11px] uppercase tracking-[0.2em] text-primary font-bold mb-4">
             PALESTRAS
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white">
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground">
             Temas para Contratação
           </h2>
         </motion.div>
@@ -51,29 +51,29 @@ export default function Palestras() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1, ease: "easeOut" }}
-              className="group flex flex-col p-8 bg-[#0F0F13] border border-white/[0.06] rounded-2xl hover:border-indigo-500/30 hover:shadow-[0_0_0_1px_rgba(99,102,241,0.15)] transition-all duration-300"
+              className="group flex flex-col p-8 bg-card border border-border rounded-2xl hover:border-primary/30 hover:shadow-[0_0_0_1px_rgba(99,102,241,0.15)] transition-all duration-300"
             >
               <div className="mb-6 flex flex-wrap gap-2">
-                <span className="text-[10px] font-medium text-white/80 bg-white/10 px-3 py-1 rounded-full border border-white/5">
+                <span className="text-[10px] font-medium text-foreground/70 bg-foreground/[0.06] px-3 py-1 rounded-full border border-border">
                   {p.badge}
                 </span>
-                <span className="text-[10px] font-medium text-indigo-300 bg-indigo-500/10 px-3 py-1 rounded-full border border-indigo-500/20">
+                <span className="text-[10px] font-medium text-indigo-500 dark:text-indigo-300 bg-indigo-500/10 px-3 py-1 rounded-full border border-indigo-500/20">
                   {p.audience}
                 </span>
               </div>
               
-              <h3 className="text-xl font-semibold text-white mb-3 leading-snug">
+              <h3 className="text-xl font-semibold text-foreground mb-3 leading-snug">
                 {p.title}
               </h3>
               
-              <p className="text-sm text-white/50 leading-relaxed flex-grow mb-8">
+              <p className="text-sm text-foreground/50 leading-relaxed flex-grow mb-8">
                 {p.desc}
               </p>
               
               <div className="mt-auto">
                 <a 
                   href="#contato"
-                  className="inline-flex items-center text-sm font-medium text-indigo-400 group-hover:text-indigo-300 transition-colors"
+                  className="inline-flex items-center text-sm font-medium text-primary group-hover:text-primary/80 transition-colors"
                 >
                   Agendar →
                 </a>

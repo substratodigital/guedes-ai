@@ -1,5 +1,26 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
+@font-face {
+  font-family: 'Geist';
+  src: url('/fonts/GeistSans-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GeistMono';
+  src: url('/fonts/GeistMono-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GeistPixel';
+  src: url('/fonts/GeistPixel.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 @import "tailwindcss";
 @import "tw-animate-css";
@@ -37,8 +58,9 @@
   --color-destructive: hsl(var(--destructive));
   --color-destructive-foreground: hsl(var(--destructive-foreground));
 
-  --font-sans: 'Inter', sans-serif;
-  --font-serif: 'Instrument Serif', serif;
+  --font-sans: 'Geist', sans-serif;
+  --font-mono: 'GeistMono', monospace;
+  --font-pixel: 'GeistPixel', monospace;
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -46,44 +68,46 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
+/* ── LIGHT MODE (default) ── */
 :root {
-  --background: 240 6% 4%;
-  --foreground: 240 5% 96%;
-  --card: 240 5% 8%;
-  --card-foreground: 240 5% 96%;
-  --card-border: 240 6% 11%;
-  --popover: 240 5% 8%;
-  --popover-foreground: 240 5% 96%;
-  --popover-border: 240 6% 11%;
-  --primary: 239 84% 67%;
+  --background: 0 0% 99%;
+  --foreground: 240 10% 8%;
+  --card: 0 0% 97%;
+  --card-foreground: 240 10% 8%;
+  --card-border: 240 6% 90%;
+  --popover: 0 0% 99%;
+  --popover-foreground: 240 10% 8%;
+  --popover-border: 240 6% 90%;
+  --primary: 239 84% 60%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 240 5% 12%;
-  --secondary-foreground: 240 5% 96%;
-  --muted: 240 5% 12%;
-  --muted-foreground: 240 5% 60%;
-  --accent: 239 84% 67%;
+  --secondary: 240 5% 94%;
+  --secondary-foreground: 240 10% 8%;
+  --muted: 240 5% 94%;
+  --muted-foreground: 240 5% 45%;
+  --accent: 239 84% 60%;
   --accent-foreground: 0 0% 100%;
   --destructive: 0 72% 51%;
   --destructive-foreground: 0 0% 100%;
-  --border: 240 6% 11%;
-  --input: 240 6% 11%;
-  --ring: 239 84% 67%;
-  --sidebar: 240 6% 5%;
-  --sidebar-foreground: 240 5% 96%;
-  --sidebar-border: 240 6% 11%;
-  --sidebar-primary: 239 84% 67%;
+  --border: 240 6% 90%;
+  --input: 240 6% 90%;
+  --ring: 239 84% 60%;
+  --sidebar: 0 0% 97%;
+  --sidebar-foreground: 240 10% 8%;
+  --sidebar-border: 240 6% 90%;
+  --sidebar-primary: 239 84% 60%;
   --sidebar-primary-foreground: 0 0% 100%;
-  --sidebar-accent: 240 5% 12%;
-  --sidebar-accent-foreground: 240 5% 96%;
-  --sidebar-ring: 239 84% 67%;
-  --chart-1: 239 84% 67%;
-  --chart-2: 172 66% 50%;
-  --chart-3: 240 5% 60%;
-  --chart-4: 16 72% 60%;
-  --chart-5: 280 70% 60%;
+  --sidebar-accent: 240 5% 94%;
+  --sidebar-accent-foreground: 240 10% 8%;
+  --sidebar-ring: 239 84% 60%;
+  --chart-1: 239 84% 60%;
+  --chart-2: 172 66% 40%;
+  --chart-3: 240 5% 50%;
+  --chart-4: 16 72% 55%;
+  --chart-5: 280 70% 55%;
   --radius: 0.5rem;
 }
 
+/* ── DARK MODE ── */
 .dark {
   --background: 240 6% 4%;
   --foreground: 240 5% 96%;
@@ -118,12 +142,35 @@ html {
   }
   body {
     @apply font-sans antialiased bg-background text-foreground;
-    background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
-    background-size: 32px 32px;
   }
 }
 
+/* ── Dot grid — adapts to theme ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.06) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+  z-index: 0;
+}
+.dark body::before,
+.dark body {
+  background-image: none;
+}
+.dark body::before {
+  background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+}
+
+/* ── Gradient text — dark mode ── */
 .gradient-text {
+  background: linear-gradient(135deg, #0a0a14 0%, rgba(10,10,20,0.7) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.dark .gradient-text {
   background: linear-gradient(135deg, #ffffff 0%, rgba(255,255,255,0.6) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -131,24 +178,78 @@ html {
 }
 
 .gradient-text-accent {
-  background: linear-gradient(135deg, #6366F1 0%, #818CF8 50%, #A5B4FC 100%);
+  background: linear-gradient(135deg, #4F46E5 0%, #6366F1 50%, #818CF8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
+/* ── Gradient mesh orbs — adapt to theme ── */
+.orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.12;
+  animation: slow-drift 22s ease-in-out infinite alternate;
+}
+.dark .orb {
+  opacity: 0.15;
+}
+
+/* Light mode orbs are very subtle warm/cool tones */
+.orb-1 {
+  background: #c7d2fe;
+  width: 700px;
+  height: 700px;
+  top: -200px;
+  left: -150px;
+  animation-delay: 0s;
+}
+.dark .orb-1 { background: #4F46E5; }
+
+.orb-2 {
+  background: #99f6e4;
+  width: 600px;
+  height: 600px;
+  bottom: -100px;
+  right: -100px;
+  animation-delay: -8s;
+}
+.dark .orb-2 { background: #0d9488; }
+
+.orb-3 {
+  background: #ddd6fe;
+  width: 500px;
+  height: 500px;
+  top: 40%;
+  left: 50%;
+  animation-delay: -14s;
+}
+.dark .orb-3 { background: #7c3aed; }
+
 @keyframes slow-drift {
-  0% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(40px, -60px) scale(1.05); }
-  66% { transform: translate(-30px, 30px) scale(0.95); }
+  0%   { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(40px, -60px) scale(1.05); }
+  66%  { transform: translate(-30px, 30px) scale(0.95); }
   100% { transform: translate(0, 0) scale(1); }
 }
 
 @keyframes marquee {
-  0% { transform: translateX(0); }
+  0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
 
 .animate-marquee {
   animation: marquee 30s linear infinite;
+}
+
+.animate-marquee-reverse {
+  animation: marquee 28s linear infinite reverse;
+}
+
+/* ── Geist Pixel accent — used sparingly ── */
+.font-pixel {
+  font-family: 'GeistPixel', monospace;
 }

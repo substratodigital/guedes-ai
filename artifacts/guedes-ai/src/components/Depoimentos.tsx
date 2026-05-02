@@ -17,7 +17,7 @@ const depoimentos = [
 
 export default function Depoimentos() {
   return (
-    <section id="depoimentos" className="w-full py-32 px-6 bg-[#0A0A0C]">
+    <section id="depoimentos" className="w-full py-32 px-6 bg-muted/30">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -26,10 +26,10 @@ export default function Depoimentos() {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="mb-16"
         >
-          <div className="text-[11px] uppercase tracking-[0.2em] text-indigo-400 font-bold mb-4">
+          <div className="text-[11px] uppercase tracking-[0.2em] text-primary font-bold mb-4">
             DEPOIMENTOS
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white">
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground">
             O Que Dizem
           </h2>
         </motion.div>
@@ -42,17 +42,17 @@ export default function Depoimentos() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1, ease: "easeOut" }}
-              className="bg-[#0F0F13] border border-white/[0.06] rounded-2xl p-8 flex flex-col"
+              className="bg-card border border-border rounded-2xl p-8 flex flex-col"
             >
               <div className="flex gap-1 mb-6">
                 {[...Array(5)].map((_, j) => (
-                  <span key={j} className="text-indigo-400 text-xs">★</span>
+                  <span key={j} className="text-primary text-xs">★</span>
                 ))}
               </div>
-              <p className="font-serif italic text-white/80 text-lg leading-relaxed flex-grow mb-8">
+              <p className="font-serif italic text-foreground/80 text-lg leading-relaxed flex-grow mb-8">
                 "{d.quote}"
               </p>
-              <p className="text-xs font-medium text-white/40 tracking-wide uppercase mt-auto">
+              <p className="text-xs font-medium text-foreground/40 tracking-wide uppercase mt-auto">
                 {d.author}
               </p>
             </motion.div>

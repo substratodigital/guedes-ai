@@ -38,10 +38,10 @@ export default function Solucoes() {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="mb-16"
         >
-          <div className="text-[11px] uppercase tracking-[0.2em] text-indigo-400 font-bold mb-4">
+          <div className="text-[11px] uppercase tracking-[0.2em] text-primary font-bold mb-4">
             SOLUÇÕES
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white">
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground">
             Além das Palestras
           </h2>
         </motion.div>
@@ -56,16 +56,16 @@ export default function Solucoes() {
               transition={{ duration: 0.4, delay: i * 0.1, ease: "easeOut" }}
               className="flex flex-col group"
             >
-              <div className="text-xs font-mono text-white/20 mb-3">
+              <div className="text-xs font-mono text-foreground/25 mb-3">
                 {(i + 1).toString().padStart(2, "0")}
               </div>
-              <h3 className="text-lg font-medium text-white mb-2">
+              <h3 className="text-lg font-medium text-foreground mb-2">
                 {s.title}
               </h3>
-              <p className="text-sm text-white/50 leading-relaxed mb-6">
+              <p className="text-sm text-foreground/50 leading-relaxed mb-6">
                 {s.desc}
               </p>
-              <div className="w-full h-px bg-white/[0.04] mt-auto group-hover:bg-indigo-500/20 transition-colors" />
+              <div className="w-full h-px bg-border mt-auto group-hover:bg-primary/30 transition-colors" />
             </motion.div>
           ))}
         </div>
