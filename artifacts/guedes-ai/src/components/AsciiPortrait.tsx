@@ -1,24 +1,45 @@
 import { useEffect, useRef } from "react";
 import specialistImg from "@assets/Especialista-hero_1777780763963.webp";
 
-// Ordered light → dense (high brightness = light char)
-const CHARS = " ··::!!||IAIA01φψαβλ∇∑ωΩ∈∀∃##@@";
-const CELL = 7;
-const MASK_ALPHA = 0.93;   // canvas darkness — photo is hidden beneath
-const MAX_RADIUS = 100;    // spotlight radius px
-const LERP_SPEED = 0.11;
+// Single dot character — all cells same shape, only color/opacity varies
+const DOT   = "0";
+const BGDOT = "·";
+const CELL    = 9;    // portrait grid step (px)
+const BGSTEP  = 21;   // background dot grid step (px)
+const MIN_A   = 12;   // minimum pixel alpha to render a dot
+const MIN_B   = 0.04; // minimum brightness to render
+const SAT_BOOST = 1.7; // color saturation multiplier
 
-interface Cell { ch: string; brightness: number }
+// Reveal effect
+const REVEAL_RADIUS = 105;
+const LERP = 0.1;
+
+interface PortraitCell {
+  r: number; g: number; b: number;
+  brightness: number;
+  alpha: number; // 0-255 from source
+}
+
+function boostColor(r: number, g: number, b: number): [number, number, number] {
+  const avg = (r + g + b) / 3;
+  return [
+    Math.min(255, Math.round(avg + (r - avg) * SAT_BOOST)),
+    Math.min(255, Math.round(avg + (g - avg) * SAT_BOOST)),
+    Math.min(255, Math.round(avg + (b - avg) * SAT_BOOST)),
+  ];
+}
 
 export function AsciiPortrait() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const mouse = useRef({ x: -1, y: -1 });
-  const curR = useRef(0);
+  const canvasRef    = useRef<HTMLCanvasElement>(null);
+  const mouse  = useRef({ x: -1, y: -1 });
+  const curR   = useRef(0);
   const targetR = useRef(0);
-  const cellsRef = useRef<Cell[]>([]);
-  const colsRef = useRef(0);
-  const rowsRef = useRef(0);
+  const portrait = useRef<PortraitCell[]>([]);
+  const cols = useRef(0);
+  const rows = useRef(0);
+  const offX = useRef(0); // offset where portrait starts (centered)
+  const offY = useRef(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -31,50 +52,50 @@ export function AsciiPortrait() {
     const img = new Image();
     img.src = specialistImg;
 
-    const buildCells = () => {
-      const W = canvas.width;
-      const H = canvas.height;
-      if (W < 4 || H < 4) return;
+    const buildPortrait = () => {
+      const CW = canvas.width;
+      const CH = canvas.height;
+      if (CW < 4 || CH < 4) return;
 
+      // Render photo contained + centered into offscreen canvas
       const off = document.createElement("canvas");
-      off.width = W;
-      off.height = H;
-      const octx = off.getContext("2d")!;
-
-      // Contain the image (same framing as the CSS img tag)
       const iA = img.naturalWidth / img.naturalHeight;
-      const cA = W / H;
-      let dw = W, dh = H, dx = 0, dy = 0;
-      if (iA > cA) { dh = W / iA; dy = (H - dh) / 2; }
-      else          { dw = H * iA; dx = (W - dw) / 2; }
-      octx.drawImage(img, dx, dy, dw, dh);
+      const cA = CW / CH;
+      let dw = CW, dh = CH, dx = 0, dy = 0;
+      if (iA > cA) { dh = CW / iA; dy = (CH - dh) / 2; }
+      else          { dw = CH * iA; dx = (CW - dw) / 2; }
+      off.width  = Math.round(dw);
+      off.height = Math.round(dh);
+      offX.current = Math.round(dx);
+      offY.current = Math.round(dy);
 
-      const { data } = octx.getImageData(0, 0, W, H);
-      const cols = Math.ceil(W / CELL);
-      const rows = Math.ceil(H / CELL);
-      colsRef.current = cols;
-      rowsRef.current = rows;
+      const octx = off.getContext("2d")!;
+      octx.drawImage(img, 0, 0, off.width, off.height);
+      const { data } = octx.getImageData(0, 0, off.width, off.height);
 
-      const list: Cell[] = [];
-      for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < cols; c++) {
-          const px = Math.min(Math.floor(c * CELL + CELL / 2), W - 1);
-          const py = Math.min(Math.floor(r * CELL + CELL / 2), H - 1);
-          const i = (py * W + px) * 4;
-          const a = data[i + 3];
-          if (a < 10) { list.push({ ch: " ", brightness: 0 }); continue; }
-          const brightness = (data[i] * 0.299 + data[i+1] * 0.587 + data[i+2] * 0.114) / 255;
-          const ci = Math.min(CHARS.length - 1, Math.floor((1 - brightness) * CHARS.length));
-          list.push({ ch: CHARS[ci], brightness });
+      const nc = Math.ceil(off.width  / CELL);
+      const nr = Math.ceil(off.height / CELL);
+      cols.current = nc;
+      rows.current = nr;
+
+      const list: PortraitCell[] = [];
+      for (let r = 0; r < nr; r++) {
+        for (let c = 0; c < nc; c++) {
+          const px = Math.min(Math.floor(c * CELL + CELL / 2), off.width  - 1);
+          const py = Math.min(Math.floor(r * CELL + CELL / 2), off.height - 1);
+          const i  = (py * off.width + px) * 4;
+          const [rr, gg, bb, aa] = [data[i], data[i+1], data[i+2], data[i+3]];
+          const brightness = (rr * 0.299 + gg * 0.587 + bb * 0.114) / 255;
+          list.push({ r: rr, g: gg, b: bb, brightness, alpha: aa });
         }
       }
-      cellsRef.current = list;
+      portrait.current = list;
     };
 
     const resize = () => {
       canvas.width  = container.offsetWidth;
       canvas.height = container.offsetHeight;
-      if (img.complete && img.naturalWidth > 0) buildCells();
+      if (img.complete && img.naturalWidth > 0) buildPortrait();
     };
 
     img.onload = () => resize();
@@ -86,61 +107,74 @@ export function AsciiPortrait() {
     const onMove = (e: MouseEvent) => {
       const rect = container.getBoundingClientRect();
       mouse.current = { x: e.clientX - rect.left, y: e.clientY - rect.top };
-      targetR.current = MAX_RADIUS;
+      targetR.current = REVEAL_RADIUS;
     };
     const onLeave = () => { targetR.current = 0; };
-
     container.addEventListener("mousemove", onMove);
     container.addEventListener("mouseleave", onLeave);
 
     const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
     const draw = () => {
-      const list = cellsRef.current;
       const W = canvas.width;
       const H = canvas.height;
+      curR.current = lerp(curR.current, targetR.current, LERP);
 
-      curR.current = lerp(curR.current, targetR.current, LERP_SPEED);
-
-      // Reset frame
+      // Clear
       ctx.clearRect(0, 0, W, H);
-
-      // ── Layer 1: near-black mask (hides photo)
       ctx.globalCompositeOperation = "source-over";
-      ctx.fillStyle = `rgba(6, 4, 16, ${MASK_ALPHA})`;
+
+      // ── Background: solid near-black
+      ctx.fillStyle = "rgb(5, 3, 12)";
       ctx.fillRect(0, 0, W, H);
 
-      // ── Layer 2: ASCII texture drawn on top of mask
-      if (list.length) {
-        const cols = colsRef.current;
-        const rows = rowsRef.current;
-        ctx.font = `${CELL}px "Geist Mono", ui-monospace, monospace`;
-        ctx.textBaseline = "top";
+      // ── Background dot grid (very faint, covers whole canvas)
+      ctx.font = `${CELL - 1}px "Geist Mono", ui-monospace, monospace`;
+      ctx.textBaseline = "top";
+      ctx.fillStyle = "rgba(255,255,255,0.045)";
+      const bgCols = Math.ceil(W / BGSTEP);
+      const bgRows = Math.ceil(H / BGSTEP);
+      for (let r = 0; r < bgRows; r++) {
+        for (let c = 0; c < bgCols; c++) {
+          ctx.fillText(BGDOT, c * BGSTEP, r * BGSTEP);
+        }
+      }
 
-        for (let r = 0; r < rows; r++) {
-          for (let c = 0; c < cols; c++) {
-            const cell = list[r * cols + c];
-            if (!cell || cell.ch === " ") continue;
-            // Dim violet — visible against dark bg but not distracting
-            const a = 0.15 + cell.brightness * 0.3;
-            ctx.fillStyle = `rgba(160,130,255,${a.toFixed(3)})`;
-            ctx.fillText(cell.ch, c * CELL, r * CELL);
+      // ── Portrait dots (colored, sampled from photo)
+      const cells = portrait.current;
+      if (cells.length) {
+        const nc  = cols.current;
+        const nr  = rows.current;
+        const ox  = offX.current;
+        const oy  = offY.current;
+        ctx.font = `${CELL}px "Geist Mono", ui-monospace, monospace`;
+
+        for (let row = 0; row < nr; row++) {
+          for (let col = 0; col < nc; col++) {
+            const cell = cells[row * nc + col];
+            if (!cell) continue;
+            if (cell.alpha < MIN_A || cell.brightness < MIN_B) continue;
+
+            const [br, bg, bb] = boostColor(cell.r, cell.g, cell.b);
+            // Alpha: low brightness = more transparent dot
+            const dotAlpha = Math.min(1, 0.25 + cell.brightness * 0.9);
+            ctx.fillStyle = `rgba(${br},${bg},${bb},${dotAlpha.toFixed(3)})`;
+            ctx.fillText(DOT, ox + col * CELL, oy + row * CELL);
           }
         }
       }
 
-      // ── Layer 3: destination-out spotlight (erases mask → reveals photo)
+      // ── Spotlight reveal: punch hole to show photo beneath
       const mx = mouse.current.x;
       const my = mouse.current.y;
       const radius = curR.current;
-
       if (mx >= 0 && radius > 0.5) {
         ctx.globalCompositeOperation = "destination-out";
         const grad = ctx.createRadialGradient(mx, my, 0, mx, my, radius);
-        grad.addColorStop(0,    "rgba(0,0,0,1)");    // fully erased → photo visible
-        grad.addColorStop(0.55, "rgba(0,0,0,0.9)");
-        grad.addColorStop(0.85, "rgba(0,0,0,0.4)");
-        grad.addColorStop(1,    "rgba(0,0,0,0)");    // mask intact
+        grad.addColorStop(0,    "rgba(0,0,0,1)");
+        grad.addColorStop(0.5,  "rgba(0,0,0,0.92)");
+        grad.addColorStop(0.82, "rgba(0,0,0,0.45)");
+        grad.addColorStop(1,    "rgba(0,0,0,0)");
         ctx.fillStyle = grad;
         ctx.fillRect(mx - radius, my - radius, radius * 2, radius * 2);
         ctx.globalCompositeOperation = "source-over";
@@ -165,14 +199,14 @@ export function AsciiPortrait() {
       className="relative w-full h-full select-none overflow-hidden"
       style={{ cursor: "crosshair" }}
     >
-      {/* Photo — fully visible underneath, revealed by spotlight */}
+      {/* Real photo — hidden under canvas, revealed by mouse spotlight */}
       <img
         src={specialistImg}
         alt="Luís Guedes"
         className="absolute inset-0 w-full h-full object-contain object-center pointer-events-none"
         draggable={false}
       />
-      {/* Canvas mask + ASCII layer on top */}
+      {/* Canvas — renders colored dot portrait + handles reveal */}
       <canvas
         ref={canvasRef}
         className="absolute inset-0 w-full h-full"
