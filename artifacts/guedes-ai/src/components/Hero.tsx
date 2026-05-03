@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import { AsciiBackground } from "@/components/AsciiBackground";
 
 export default function Hero() {
   const scrollToContact = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -27,6 +28,7 @@ export default function Hero() {
 
   return (
     <section id="hero" className="relative min-h-[100dvh] w-full flex items-center justify-center pt-24 pb-12 px-6">
+      <AsciiBackground />
       <div className="relative z-10 flex flex-col items-center text-center max-w-5xl mx-auto w-full">
         
         <motion.div 
