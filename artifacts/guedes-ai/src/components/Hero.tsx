@@ -32,6 +32,14 @@ export default function Hero() {
       {/* Dark gradient overlay for text legibility */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70 pointer-events-none z-[1]" />
 
+      {/* Bottom fade — blends hero into the next section with no hard edge */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-64 pointer-events-none z-[2]"
+        style={{
+          background: "linear-gradient(to bottom, transparent 0%, hsl(var(--background)) 100%)",
+        }}
+      />
+
       {/* Centered content */}
       <div className="relative z-10 flex flex-col items-center text-center max-w-5xl mx-auto w-full">
 
