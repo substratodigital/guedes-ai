@@ -1,12 +1,6 @@
 uploads = []
 
 [[generated]]
-id = "TdwjOoRNVhj9IYdPi8gIv"
-uri = "file://artifacts/guedes-ai/public/hero-portrait.png"
-type = "image"
-title = "Professional speaker portrait"
-
-[[generated]]
 id = "w_w_yl2wxgUnNJTGvxZ_0"
 uri = "file://artifacts/guedes-ai/public/palestra-1.png"
 type = "image"
