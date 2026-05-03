@@ -124,7 +124,7 @@ function HorizontalRow({
       </div>
 
       {/* Scrollable track */}
-      <div className="overflow-x-auto pb-4 -mx-6 px-6">
+      <div className="overflow-x-auto pb-4 -mx-6 px-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         <div className="relative flex min-w-max">
           {/* Horizontal line */}
           <div
@@ -179,7 +179,7 @@ export default function Trajetoria() {
             TRAJETÓRIA
           </div>
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground">
-            30 Anos de Trajetória
+            30+ anos de<br />experiência profissional
           </h2>
         </motion.div>
 
