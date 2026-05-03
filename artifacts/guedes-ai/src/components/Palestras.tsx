@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Megaphone, CheckCircle2, AlertTriangle, ArrowRight, Sparkles } from "lucide-react";
+import { Megaphone, CheckCircle2, AlertTriangle, ArrowRight } from "lucide-react";
 
 type Detail =
   | { kind: "two-col"; left: { icon: "check" | "alert"; label: string; items: { title: string; desc: string }[] }; right: { icon: "check" | "alert"; label: string; items: { title: string; desc: string }[] } }
@@ -16,7 +16,6 @@ interface Palestra {
   accentColor: string;
   tagline: string;
   fullDesc: string;
-  isNew?: boolean;
   details: Detail[];
 }
 
@@ -98,29 +97,6 @@ const palestras: Palestra[] = [
       {
         kind: "quote",
         text: "Não é sobre chegar rápido. É sobre escolher bem o caminho — e as pessoas que caminham com você.",
-      },
-    ],
-  },
-  {
-    id: "palestras-2026",
-    num: "04",
-    title: "Palestras 2026",
-    badge: "Novidades 2026",
-    audience: "Todos os públicos",
-    accentColor: "#f59e0b",
-    tagline: "Novos temas para um novo momento da IA",
-    fullDesc:
-      "A IA avança em velocidade sem precedentes. Os novos temas de 2026 refletem o que há de mais atual na fronteira da Inteligência Artificial — dos agentes autônomos à regulação, passando pelo impacto nas profissões e na criatividade humana.",
-    isNew: true,
-    details: [
-      {
-        kind: "grid",
-        items: [
-          { title: "Agentes de IA e Autonomia", desc: "O próximo passo além dos chatbots: como os agentes de IA tomam decisões, executam tarefas e transformam o trabalho do conhecimento." },
-          { title: "IA e o Futuro das Profissões", desc: "Quais profissões serão mais impactadas, quais emergirão e como preparar equipes e carreiras para este novo cenário." },
-          { title: "Regulação e Governança", desc: "O que muda com a Lei Brasileira de IA, o AI Act europeu e as novas exigências de conformidade para organizações." },
-          { title: "IA Generativa e Criatividade", desc: "Como líderes, times criativos e educadores podem usar a IA generativa de forma ética, estratégica e diferenciadora." },
-        ],
       },
     ],
   },
@@ -231,14 +207,6 @@ export default function Palestras() {
                       >
                         {item.num}
                       </span>
-                      {item.isNew && (
-                        <span
-                          className="inline-flex items-center gap-0.5 text-[8px] font-bold uppercase tracking-wide px-1.5 py-0.5"
-                          style={{ background: `${item.accentColor}20`, color: item.accentColor }}
-                        >
-                          <Sparkles className="w-2 h-2" /> novo
-                        </span>
-                      )}
                     </div>
                     <span
                       className={`text-sm font-semibold leading-snug block transition-colors ${
@@ -294,14 +262,6 @@ export default function Palestras() {
                     <span className="text-[10px] text-foreground/35 border border-border px-2.5 py-1">
                       {p.audience}
                     </span>
-                    {p.isNew && (
-                      <span
-                        className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wide px-2.5 py-1 border"
-                        style={{ color: p.accentColor, borderColor: `${p.accentColor}50`, background: `${p.accentColor}10` }}
-                      >
-                        <Sparkles className="w-3 h-3" /> Novidades 2026
-                      </span>
-                    )}
                   </div>
 
                   <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-foreground leading-tight mb-2">
