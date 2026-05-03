@@ -51,7 +51,7 @@ export default function Hero() {
           className="text-6xl md:text-8xl lg:text-[8rem] font-bold tracking-tight mb-4 gradient-text"
           style={{ lineHeight: 1.1 }}
         >
-          Luís Guedes
+          Lu<span className="font-pixel">í</span>s <span className="font-pixel">G</span>ue<span className="font-pixel">d</span>es
         </motion.h1>
 
         <motion.h2 
