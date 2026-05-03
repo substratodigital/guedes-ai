@@ -1,81 +1,10 @@
 import { motion } from "framer-motion";
 import { Briefcase, GraduationCap } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
-const experiencia = [
-  {
-    org: "FIA Consulting",
-    period: "Desde 2015",
-    role: "Consultor Estratégico",
-    bullets: [
-      "Projetos em estratégia, inovação, eficiência e liderança",
-      "30+ projetos com governos e grandes empresas",
-    ],
-  },
-  {
-    org: "Google",
-    period: "2011 – 2012",
-    role: "Head FP&A Latam",
-    bullets: [
-      "Liderança do planejamento financeiro para a América Latina",
-      "Projetos de otimização e comunicação interna",
-    ],
-  },
-  {
-    org: "FIA / Einstein",
-    period: "Desde 2009",
-    role: "Professor-Doutor",
-    bullets: [
-      "IA, inovação, criatividade aplicada aos negócios",
-      "19 prêmios de excelência didática",
-    ],
-  },
-  {
-    org: "ABNT / Pref. SP",
-    period: "Desde 2023",
-    role: "Consultor & Conselheiro",
-    bullets: [
-      "Consultor na comissão de IA da ABNT",
-      "Conselheiro de Clima — Prefeitura de São Paulo",
-    ],
-  },
-];
+const COL_W = 240;
 
-const educacao = [
-  {
-    org: "FEA / USP",
-    period: "2022 – 2024",
-    role: "Pós-Doutorado",
-    desc: "Inteligência Artificial",
-  },
-  {
-    org: "FEA / USP",
-    period: "2008 – 2012",
-    role: "Doutorado",
-    desc: "em Inovação",
-  },
-  {
-    org: "FIA",
-    period: "2007",
-    role: "MBA Internacional",
-    desc: "Cambridge · Lyon · Vanderbilt",
-  },
-  {
-    org: "FGV / EAESP",
-    period: "2002 – 2004",
-    role: "Mestrado",
-    desc: "em Gestão de Operações",
-  },
-  {
-    org: "FEI",
-    period: "1990 – 1995",
-    role: "Graduação",
-    desc: "Engenharia de Computadores",
-  },
-];
-
-const COL_W = 240; // px per column
-
-interface ExpItem { org: string; period: string; role: string; bullets: string[] }
+interface ExpItem { org: string; period: string; role: string; bullets: readonly string[] }
 interface EduItem { org: string; period: string; role: string; desc: string }
 type AnyItem = ExpItem | EduItem;
 
@@ -92,7 +21,7 @@ function TimelineRow({
   label: string;
   icon: React.ReactNode;
   accent: string;
-  items: AnyItem[];
+  items: readonly AnyItem[];
 }) {
   const totalWidth = items.length * COL_W;
 
@@ -114,41 +43,26 @@ function TimelineRow({
         </span>
       </div>
 
-      {/* ── DESKTOP: horizontal three-row grid ── */}
-      <div
-        className="hidden md:block overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
-      >
+      {/* DESKTOP: horizontal timeline */}
+      <div className="hidden md:block overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         <div style={{ width: totalWidth }}>
 
-          {/* Row A: period + org name */}
+          {/* Row A: period + org */}
           <div className="flex">
             {items.map((item, i) => (
               <div key={i} style={{ width: COL_W, flexShrink: 0 }} className="pr-8 pb-3">
-                <p className="text-[10px] font-mono text-foreground/40 mb-0.5 tracking-wide">
-                  {item.period}
-                </p>
+                <p className="text-[10px] font-mono text-foreground/40 mb-0.5 tracking-wide">{item.period}</p>
                 <p className="text-base font-bold text-foreground leading-tight">{item.org}</p>
               </div>
             ))}
           </div>
 
-          {/* Row B: line + dots */}
+          {/* Row B: timeline line + dots */}
           <div className="relative flex items-center" style={{ height: 24 }}>
-            {/* Full-width line */}
-            <div
-              className="absolute inset-y-1/2 left-0 right-0 h-px"
-              style={{ background: `${accent}35` }}
-            />
+            <div className="absolute inset-y-1/2 left-0 right-0 h-px" style={{ background: `${accent}35` }} />
             {items.map((_, i) => (
-              <div
-                key={i}
-                style={{ width: COL_W, flexShrink: 0 }}
-                className="relative z-10 flex items-center"
-              >
-                <div
-                  className="w-3 h-3 rounded-full border-2 bg-background shrink-0"
-                  style={{ borderColor: accent }}
-                />
+              <div key={i} style={{ width: COL_W, flexShrink: 0 }} className="relative z-10 flex items-center">
+                <div className="w-3 h-3 rounded-full border-2 bg-background shrink-0" style={{ borderColor: accent }} />
               </div>
             ))}
           </div>
@@ -177,7 +91,7 @@ function TimelineRow({
         </div>
       </div>
 
-      {/* ── MOBILE: vertical card list ── */}
+      {/* MOBILE: vertical card list */}
       <div className="md:hidden flex flex-col gap-4">
         {items.map((item, i) => (
           <motion.div
@@ -189,10 +103,7 @@ function TimelineRow({
             className="relative pl-5 border-l-2"
             style={{ borderColor: `${accent}50` }}
           >
-            <div
-              className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full border-2 bg-background"
-              style={{ borderColor: accent }}
-            />
+            <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full border-2 bg-background" style={{ borderColor: accent }} />
             <p className="text-[10px] font-mono text-foreground/40 mb-0.5">{item.period}</p>
             <p className="text-sm font-bold text-foreground mb-0.5">{item.org}</p>
             <p className="text-sm font-semibold text-foreground/80 mb-2">{item.role}</p>
@@ -216,6 +127,8 @@ function TimelineRow({
 }
 
 export default function Trajetoria() {
+  const { t } = useLanguage();
+
   return (
     <section id="trajetoria" className="w-full py-32 px-6">
       <div className="max-w-7xl mx-auto">
@@ -229,26 +142,26 @@ export default function Trajetoria() {
           className="mb-20"
         >
           <div className="text-[11px] uppercase tracking-[0.22em] text-primary font-bold mb-4">
-            TRAJETÓRIA
+            {t.trajetoria.label}
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground">
-            30+ anos de<br />experiência profissional
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground" style={{ whiteSpace: "pre-line" }}>
+            {t.trajetoria.h2}
           </h2>
         </motion.div>
 
         {/* Timeline rows */}
         <div className="flex flex-col gap-20">
           <TimelineRow
-            label="Experiência"
+            label={t.trajetoria.experienciaLabel}
             icon={<Briefcase className="w-3 h-3" />}
             accent="#6366f1"
-            items={experiencia}
+            items={t.trajetoria.experiencia}
           />
           <TimelineRow
-            label="Educação"
+            label={t.trajetoria.educacaoLabel}
             icon={<GraduationCap className="w-3 h-3" />}
             accent="#8b5cf6"
-            items={educacao}
+            items={t.trajetoria.educacao}
           />
         </div>
 

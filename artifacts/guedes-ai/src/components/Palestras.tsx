@@ -1,106 +1,12 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Megaphone, CheckCircle2, AlertTriangle, ArrowRight } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 type Detail =
   | { kind: "two-col"; left: { icon: "check" | "alert"; label: string; items: { title: string; desc: string }[] }; right: { icon: "check" | "alert"; label: string; items: { title: string; desc: string }[] } }
   | { kind: "grid"; items: { title: string; desc: string }[] }
   | { kind: "quote"; text: string };
-
-interface Palestra {
-  id: string;
-  num: string;
-  title: string;
-  badge: string;
-  audience: string;
-  accentColor: string;
-  tagline: string;
-  fullDesc: string;
-  details: Detail[];
-}
-
-const palestras: Palestra[] = [
-  {
-    id: "ia-360",
-    num: "01",
-    title: "IA | 360",
-    badge: "Palestra / Mini-curso",
-    audience: "Executivos · Líderes · Famílias",
-    accentColor: "#6366f1",
-    tagline: "Fundamentos de IA para um novo mundo",
-    fullDesc:
-      "Uma palestra que explora como a Inteligência Artificial está transformando simultaneamente nossas carreiras, empresas, famílias e a sociedade — com profundidade acadêmica e linguagem acessível.",
-    details: [
-      {
-        kind: "grid",
-        items: [
-          { title: "Sua Carreira e Seu Futuro", desc: "Como a IA pode acelerar seu aprendizado, aumentar sua eficiência e influência, agora e no futuro próximo." },
-          { title: "Sua Empresa e Seu Time", desc: "Em tempos turbulentos, a liderança faz toda a diferença; como a IA pode estar a serviço do futuro." },
-          { title: "Seus Filhos e Sua Família", desc: "As oportunidades com o uso da IA são do tamanho dos desafios: técnicos, humanos, éticos. Como apoiar os nossos?" },
-          { title: "Sociedade e um Bem Maior", desc: "Como líderes podem utilizar ferramentas de IA para apoiar o progresso de suas comunidades." },
-        ],
-      },
-    ],
-  },
-  {
-    id: "acelerando-ia",
-    num: "02",
-    title: "Acelerando a Implementação da IA",
-    badge: "Palestra",
-    audience: "C-level · Inovação",
-    accentColor: "#8b5cf6",
-    tagline: "Acelerando a implementação da IA nas organizações",
-    fullDesc:
-      "Para executivos e times de inovação que precisam ir além do hype e entender os verdadeiros vetores de adoção, os riscos ocultos e as boas práticas para governança de IA.",
-    details: [
-      {
-        kind: "two-col",
-        left: {
-          icon: "check",
-          label: "Drives",
-          items: [
-            { title: "Eficiência", desc: "A primeira fronteira da adoção de IA é a busca pelo aumento da eficiência. Não uma revolução, mas uma evolução no que fazemos hoje." },
-            { title: "Acelerar a Inovação", desc: "A IA deve estar a serviço da inovação em suas mais diversas formas: tecnológica, gerencial, nos processos." },
-          ],
-        },
-        right: {
-          icon: "alert",
-          label: "Riscos",
-          items: [
-            { title: "Excesso de Confiança", desc: "Os LLMs foram treinados para a inteligibilidade e não para a acurácia. Quais as boas práticas para não dar às máquinas maior credibilidade do que é aceitável." },
-            { title: "Delegação para IA", desc: "A comunidade acadêmica e as boas práticas indicam que o humano deve estar no controle das decisões, mesmo daquelas indicadas por IA." },
-          ],
-        },
-      },
-    ],
-  },
-  {
-    id: "800km",
-    num: "03",
-    title: "800 km, Um Passo de Cada Vez",
-    badge: "Palestra Motivacional",
-    audience: "Todos os públicos",
-    accentColor: "#0d9488",
-    tagline: "Inspiração e energia para a mudança",
-    fullDesc:
-      "Nessa palestra busco estabelecer paralelos entre a vida corporativa e o que aprendi ao longo das duas vezes em que fiz o Caminho de Santiago — uma jornada de 800 km a pé.",
-    details: [
-      {
-        kind: "grid",
-        items: [
-          { title: "Superação e Resiliência", desc: "As lições de superação, solidariedade, confiança e a tenacidade apoiam a reflexão de como podemos nos planejar para fazer grandes coisas." },
-          { title: "Planejamento do Caminho", desc: "É bom que se esperem dificuldades ao longo do percurso. A conversa se estabelece ao redor dos desafios típicos do ambiente corporativo." },
-          { title: "Estabelecer as Condições", desc: "Convida os participantes a estabelecerem suas próprias condições, a traçar o caminho e arrumar sua mochila." },
-          { title: "Escolher sua Companhia", desc: "Sobretudo, escolher com cuidado sua companhia — um dos ensinamentos mais valiosos do Caminho de Santiago." },
-        ],
-      },
-      {
-        kind: "quote",
-        text: "Não é sobre chegar rápido. É sobre escolher bem o caminho — e as pessoas que caminham com você.",
-      },
-    ],
-  },
-];
 
 function DetailBlock({ detail, accent }: { detail: Detail; accent: string }) {
   if (detail.kind === "quote") {
@@ -154,6 +60,8 @@ function DetailBlock({ detail, accent }: { detail: Detail; accent: string }) {
 
 export default function Palestras() {
   const [active, setActive] = useState(0);
+  const { t } = useLanguage();
+  const palestras = t.palestras.items;
   const p = palestras[active];
 
   return (
@@ -168,16 +76,18 @@ export default function Palestras() {
           transition={{ duration: 0.5 }}
           className="mb-20"
         >
-          <div className="text-[11px] uppercase tracking-[0.22em] text-primary font-bold mb-4">PALESTRAS</div>
+          <div className="text-[11px] uppercase tracking-[0.22em] text-primary font-bold mb-4">
+            {t.palestras.label}
+          </div>
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground max-w-xl">
-            Temas para Contratação
+            {t.palestras.h2}
           </h2>
         </motion.div>
 
         {/* Layout */}
         <div className="flex flex-col lg:flex-row gap-0 items-stretch">
 
-          {/* LEFT — brutalist compact tabs */}
+          {/* LEFT — tabs */}
           <div className="lg:w-[260px] shrink-0 border-t border-border">
             {palestras.map((item, i) => {
               const isActive = i === active;
@@ -198,21 +108,13 @@ export default function Palestras() {
                     className="absolute left-0 top-0 bottom-0 w-[3px] transition-opacity duration-200"
                     style={{ background: item.accentColor, opacity: isActive ? 1 : 0 }}
                   />
-
                   <div className="pl-1">
                     <div className="flex items-center gap-2 mb-1">
-                      <span
-                        className="font-mono text-[10px] transition-colors"
-                        style={{ color: isActive ? item.accentColor : undefined }}
-                      >
+                      <span className="font-mono text-[10px] transition-colors" style={{ color: isActive ? item.accentColor : undefined }}>
                         {item.num}
                       </span>
                     </div>
-                    <span
-                      className={`text-sm font-semibold leading-snug block transition-colors ${
-                        isActive ? "text-foreground" : "text-foreground/45 group-hover:text-foreground/70"
-                      }`}
-                    >
+                    <span className={`text-sm font-semibold leading-snug block transition-colors ${isActive ? "text-foreground" : "text-foreground/45 group-hover:text-foreground/70"}`}>
                       {item.title}
                     </span>
                     <span className={`text-[10px] mt-0.5 block transition-colors ${isActive ? "text-foreground/50" : "text-foreground/25"}`}>
@@ -229,7 +131,7 @@ export default function Palestras() {
                 href="#contato"
                 className="flex items-center justify-between w-full text-sm font-semibold text-foreground border border-border px-4 py-3 hover:bg-foreground/[0.04] transition-colors group"
               >
-                Agendar palestra
+                {t.palestras.cta}
                 <ArrowRight className="w-4 h-4 text-foreground/40 group-hover:translate-x-1 transition-transform" />
               </a>
             </div>
@@ -242,7 +144,7 @@ export default function Palestras() {
           <div className="flex-1 min-w-0 border-t border-border">
             <AnimatePresence mode="wait">
               <motion.div
-                key={p.id}
+                key={`${p.id}-${active}`}
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
@@ -281,7 +183,7 @@ export default function Palestras() {
 
                 <div className="flex flex-col gap-6">
                   {p.details.map((d, i) => (
-                    <DetailBlock key={i} detail={d} accent={p.accentColor} />
+                    <DetailBlock key={i} detail={d as Detail} accent={p.accentColor} />
                   ))}
                 </div>
               </motion.div>

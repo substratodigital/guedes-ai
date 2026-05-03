@@ -2,20 +2,15 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sun, Moon } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
+import { useLanguage, type Language } from "@/context/LanguageContext";
 
-const navLinks = [
-  { name: "Clientes", href: "#clientes" },
-  { name: "Palestras", href: "#palestras" },
-  { name: "Trajetória", href: "#trajetoria" },
-  { name: "Publicações", href: "#publicacoes" },
-  { name: "Soluções", href: "#solucoes" },
-  { name: "Contato", href: "#contato" },
-];
+const LANGS: Language[] = ["pt", "en", "es"];
 
 export default function Nav() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  const { lang, setLang, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -23,7 +18,6 @@ export default function Nav() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Lock body scroll when menu open
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
@@ -35,6 +29,11 @@ export default function Nav() {
     setTimeout(() => {
       document.getElementById(href.replace("#", ""))?.scrollIntoView({ behavior: "smooth" });
     }, menuOpen ? 400 : 0);
+  };
+
+  const cycleLang = () => {
+    const next = LANGS[(LANGS.indexOf(lang) + 1) % LANGS.length];
+    setLang(next);
   };
 
   const navBg = isScrolled
@@ -57,7 +56,7 @@ export default function Nav() {
 
           {/* Desktop links */}
           <div className="hidden lg:flex items-center gap-7">
-            {navLinks.map((link) => (
+            {t.nav.links.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
@@ -71,7 +70,17 @@ export default function Nav() {
           </div>
 
           {/* Right actions */}
-          <div className="flex items-center gap-3 z-[110] relative">
+          <div className="flex items-center gap-2 z-[110] relative">
+            {/* Language cycle button */}
+            <button
+              onClick={cycleLang}
+              aria-label="Switch language"
+              data-testid="button-lang-toggle"
+              className="w-9 h-9 flex items-center justify-center rounded-full border border-border text-foreground/60 hover:text-foreground hover:border-foreground/30 transition-all"
+            >
+              <span className="text-[10px] font-bold tracking-wider uppercase">{lang}</span>
+            </button>
+
             {/* Theme toggle */}
             <button
               onClick={toggleTheme}
@@ -99,7 +108,7 @@ export default function Nav() {
               className="hidden lg:inline-flex bg-primary hover:bg-primary/90 text-primary-foreground font-medium text-[13px] px-4 py-2 rounded-full transition-all"
               data-testid="button-nav-agendar"
             >
-              Agendar Palestra
+              {t.nav.cta}
             </a>
 
             {/* Mobile hamburger → X */}
@@ -109,27 +118,15 @@ export default function Nav() {
               aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
               data-testid="button-mobile-menu"
             >
-              <motion.span
-                animate={menuOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
-                transition={{ duration: 0.22 }}
-                className="block w-5 h-[1.5px] bg-foreground origin-center"
-              />
-              <motion.span
-                animate={menuOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
-                transition={{ duration: 0.22 }}
-                className="block w-5 h-[1.5px] bg-foreground"
-              />
-              <motion.span
-                animate={menuOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
-                transition={{ duration: 0.22 }}
-                className="block w-5 h-[1.5px] bg-foreground origin-center"
-              />
+              <motion.span animate={menuOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }} transition={{ duration: 0.22 }} className="block w-5 h-[1.5px] bg-foreground origin-center" />
+              <motion.span animate={menuOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }} transition={{ duration: 0.22 }} className="block w-5 h-[1.5px] bg-foreground" />
+              <motion.span animate={menuOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }} transition={{ duration: 0.22 }} className="block w-5 h-[1.5px] bg-foreground origin-center" />
             </button>
           </div>
         </div>
       </nav>
 
-      {/* ── Full-screen brutalist mobile menu ── */}
+      {/* ── Full-screen mobile menu ── */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -141,19 +138,19 @@ export default function Nav() {
             className="fixed inset-0 z-[100] lg:hidden flex flex-col"
             style={{ background: "var(--color-background)" }}
           >
-            {/* Top bar inside overlay */}
+            {/* Top bar */}
             <div className="flex items-center justify-between px-6 py-5 border-b border-border shrink-0">
               <span className="font-bold text-foreground tracking-tight text-[15px]">
                 GUEDES<span className="text-primary">.</span>AI
               </span>
               <span className="font-mono text-[10px] text-foreground/30 uppercase tracking-[0.2em]">
-                Menu
+                {t.nav.menu}
               </span>
             </div>
 
             {/* Nav items */}
             <div className="flex-1 flex flex-col overflow-y-auto">
-              {navLinks.map((link, i) => (
+              {t.nav.links.map((link, i) => (
                 <motion.a
                   key={link.name}
                   href={link.href}
@@ -164,22 +161,13 @@ export default function Nav() {
                   transition={{ duration: 0.3, delay: i * 0.06, ease: "easeOut" }}
                   className="group flex items-center gap-5 px-6 py-6 border-b border-border hover:bg-foreground/[0.03] transition-colors"
                 >
-                  {/* Number */}
                   <span className="font-mono text-[11px] text-foreground/25 w-6 shrink-0 group-hover:text-primary transition-colors">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-
-                  {/* Link text */}
                   <span className="text-[2.2rem] font-bold tracking-tight text-foreground leading-none group-hover:text-primary transition-colors">
                     {link.name}
                   </span>
-
-                  {/* Arrow */}
-                  <motion.span
-                    className="ml-auto text-foreground/20 group-hover:text-primary font-mono text-lg transition-colors"
-                    initial={{ x: 0 }}
-                    whileHover={{ x: 4 }}
-                  >
+                  <motion.span className="ml-auto text-foreground/20 group-hover:text-primary font-mono text-lg transition-colors" initial={{ x: 0 }} whileHover={{ x: 4 }}>
                     →
                   </motion.span>
                 </motion.a>
@@ -199,7 +187,7 @@ export default function Nav() {
                 onClick={(e) => scrollTo(e, "#contato")}
                 className="flex items-center justify-center w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold text-base px-6 py-4 rounded-2xl transition-all"
               >
-                Agendar Palestra
+                {t.nav.cta}
               </a>
               <p className="text-center text-[11px] text-foreground/30 font-mono mt-4 tracking-wide uppercase">
                 lguedes.sp@gmail.com
