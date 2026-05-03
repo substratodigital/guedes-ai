@@ -1,5 +1,4 @@
 uploads = []
-outputs = []
 
 [[generated]]
 id = "TdwjOoRNVhj9IYdPi8gIv"
@@ -24,3 +23,21 @@ id = "rFA0I575vWh04kKlT8YK-"
 uri = "file://artifacts/guedes-ai/public/palestra-3.png"
 type = "image"
 title = "Journey landscape image"
+
+[[outputs]]
+id = "t3BxiMdLYThbiM0PAmYc1"
+uri = "file://artifacts/guedes-ai/TECH_SPEC.md"
+type = "text"
+title = "Tech Spec — GUEDES.AI"
+
+[[outputs]]
+id = "GCFZRVhOYHpvt-AyqYBMe"
+uri = "file://artifacts/guedes-ai/DESIGN_SPEC.md"
+type = "text"
+title = "Design Spec — GUEDES.AI"
+
+[[outputs]]
+id = "YobYoVGb9QpMu0hhAb2WA"
+uri = "file://artifacts/guedes-ai/vercel.json"
+type = "unspecified"
+title = "vercel.json — Config de Deploy"
