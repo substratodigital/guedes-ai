@@ -51,8 +51,8 @@ export default function Hero() {
           initial="hidden"
           animate="visible"
           variants={staggerVariants}
-          className="text-5xl md:text-7xl lg:text-[6.5rem] font-bold tracking-tight mb-4 gradient-text"
-          style={{ lineHeight: 1.05 }}
+          className="whitespace-nowrap font-bold tracking-tight mb-4 gradient-text"
+          style={{ lineHeight: 1.05, fontSize: "clamp(2.6rem, 5.2vw, 5.5rem)" }}
         >
           Lu<span className="font-pixel">í</span>s <span className="font-pixel">G</span>ue<span className="font-pixel">d</span>es
         </motion.h1>

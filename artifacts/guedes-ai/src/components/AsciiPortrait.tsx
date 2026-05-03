@@ -1,27 +1,24 @@
 import { useEffect, useRef } from "react";
 import specialistImg from "@assets/Especialista-hero_1777780763963.webp";
 
-// Light → dense (brightness high = light char, brightness low = dense char)
-const CHARS = " ·:!|IA01φψαβλ∇∑ωΩ∈∀∃@#";
-const CELL = 8;
-const REVEAL_RADIUS = 130;
-const EDGE_FRAC = 0.38; // soft-edge fraction of radius
+// Ordered light → dense (high brightness = light char)
+const CHARS = " ··::!!||IAIA01φψαβλ∇∑ωΩ∈∀∃##@@";
+const CELL = 7;
+const MASK_ALPHA = 0.93;   // canvas darkness — photo is hidden beneath
+const MAX_RADIUS = 100;    // spotlight radius px
+const LERP_SPEED = 0.11;
 
-interface CellData {
-  ch: string;
-  brightness: number;
-  hasContent: boolean;
-}
+interface Cell { ch: string; brightness: number }
 
 export function AsciiPortrait() {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouse = useRef({ x: -1, y: -1 });
-  const curReveal = useRef(0);
-  const targetReveal = useRef(0);
-  const cells = useRef<CellData[]>([]);
-  const gridCols = useRef(0);
-  const gridRows = useRef(0);
+  const curR = useRef(0);
+  const targetR = useRef(0);
+  const cellsRef = useRef<Cell[]>([]);
+  const colsRef = useRef(0);
+  const rowsRef = useRef(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -31,70 +28,51 @@ export function AsciiPortrait() {
     if (!ctx) return;
 
     let animId: number;
-
     const img = new Image();
     img.src = specialistImg;
 
     const buildCells = () => {
       const W = canvas.width;
       const H = canvas.height;
-      if (W === 0 || H === 0) return;
+      if (W < 4 || H < 4) return;
 
       const off = document.createElement("canvas");
       off.width = W;
       off.height = H;
       const octx = off.getContext("2d")!;
 
-      // Contain image (center it)
-      const iAspect = img.naturalWidth / img.naturalHeight;
-      const cAspect = W / H;
+      // Contain the image (same framing as the CSS img tag)
+      const iA = img.naturalWidth / img.naturalHeight;
+      const cA = W / H;
       let dw = W, dh = H, dx = 0, dy = 0;
-      if (iAspect > cAspect) {
-        dh = W / iAspect;
-        dy = (H - dh) / 2;
-      } else {
-        dw = H * iAspect;
-        dx = (W - dw) / 2;
-      }
+      if (iA > cA) { dh = W / iA; dy = (H - dh) / 2; }
+      else          { dw = H * iA; dx = (W - dw) / 2; }
       octx.drawImage(img, dx, dy, dw, dh);
 
-      const idata = octx.getImageData(0, 0, W, H);
-      const data = idata.data;
-
+      const { data } = octx.getImageData(0, 0, W, H);
       const cols = Math.ceil(W / CELL);
       const rows = Math.ceil(H / CELL);
-      gridCols.current = cols;
-      gridRows.current = rows;
+      colsRef.current = cols;
+      rowsRef.current = rows;
 
-      const result: CellData[] = [];
-      for (let row = 0; row < rows; row++) {
-        for (let col = 0; col < cols; col++) {
-          const px = Math.min(Math.floor(col * CELL + CELL / 2), W - 1);
-          const py = Math.min(Math.floor(row * CELL + CELL / 2), H - 1);
-          const idx = (py * W + px) * 4;
-          const alpha = data[idx + 3];
-
-          if (alpha < 10) {
-            result.push({ ch: " ", brightness: 0, hasContent: false });
-            continue;
-          }
-
-          const r = data[idx];
-          const g = data[idx + 1];
-          const b = data[idx + 2];
-          const brightness = (r * 0.299 + g * 0.587 + b * 0.114) / 255;
-          const charIdx = Math.min(
-            CHARS.length - 1,
-            Math.floor((1 - brightness) * CHARS.length)
-          );
-          result.push({ ch: CHARS[charIdx], brightness, hasContent: true });
+      const list: Cell[] = [];
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const px = Math.min(Math.floor(c * CELL + CELL / 2), W - 1);
+          const py = Math.min(Math.floor(r * CELL + CELL / 2), H - 1);
+          const i = (py * W + px) * 4;
+          const a = data[i + 3];
+          if (a < 10) { list.push({ ch: " ", brightness: 0 }); continue; }
+          const brightness = (data[i] * 0.299 + data[i+1] * 0.587 + data[i+2] * 0.114) / 255;
+          const ci = Math.min(CHARS.length - 1, Math.floor((1 - brightness) * CHARS.length));
+          list.push({ ch: CHARS[ci], brightness });
         }
       }
-      cells.current = result;
+      cellsRef.current = list;
     };
 
     const resize = () => {
-      canvas.width = container.offsetWidth;
+      canvas.width  = container.offsetWidth;
       canvas.height = container.offsetHeight;
       if (img.complete && img.naturalWidth > 0) buildCells();
     };
@@ -105,71 +83,67 @@ export function AsciiPortrait() {
     const ro = new ResizeObserver(resize);
     ro.observe(container);
 
-    const onMouseMove = (e: MouseEvent) => {
+    const onMove = (e: MouseEvent) => {
       const rect = container.getBoundingClientRect();
       mouse.current = { x: e.clientX - rect.left, y: e.clientY - rect.top };
-      targetReveal.current = REVEAL_RADIUS;
+      targetR.current = MAX_RADIUS;
     };
-    const onMouseLeave = () => {
-      targetReveal.current = 0;
-    };
+    const onLeave = () => { targetR.current = 0; };
 
-    container.addEventListener("mousemove", onMouseMove);
-    container.addEventListener("mouseleave", onMouseLeave);
+    container.addEventListener("mousemove", onMove);
+    container.addEventListener("mouseleave", onLeave);
 
     const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
     const draw = () => {
-      const cellList = cells.current;
-      if (!cellList.length) {
-        animId = requestAnimationFrame(draw);
-        return;
+      const list = cellsRef.current;
+      const W = canvas.width;
+      const H = canvas.height;
+
+      curR.current = lerp(curR.current, targetR.current, LERP_SPEED);
+
+      // Reset frame
+      ctx.clearRect(0, 0, W, H);
+
+      // ── Layer 1: near-black mask (hides photo)
+      ctx.globalCompositeOperation = "source-over";
+      ctx.fillStyle = `rgba(6, 4, 16, ${MASK_ALPHA})`;
+      ctx.fillRect(0, 0, W, H);
+
+      // ── Layer 2: ASCII texture drawn on top of mask
+      if (list.length) {
+        const cols = colsRef.current;
+        const rows = rowsRef.current;
+        ctx.font = `${CELL}px "Geist Mono", ui-monospace, monospace`;
+        ctx.textBaseline = "top";
+
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols; c++) {
+            const cell = list[r * cols + c];
+            if (!cell || cell.ch === " ") continue;
+            // Dim violet — visible against dark bg but not distracting
+            const a = 0.15 + cell.brightness * 0.3;
+            ctx.fillStyle = `rgba(160,130,255,${a.toFixed(3)})`;
+            ctx.fillText(cell.ch, c * CELL, r * CELL);
+          }
+        }
       }
 
-      // Lerp reveal radius
-      curReveal.current = lerp(curReveal.current, targetReveal.current, 0.09);
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.font = `${CELL}px "Geist Mono", ui-monospace, monospace`;
-      ctx.textBaseline = "top";
-
-      const cols = gridCols.current;
-      const rows = gridRows.current;
+      // ── Layer 3: destination-out spotlight (erases mask → reveals photo)
       const mx = mouse.current.x;
       const my = mouse.current.y;
-      const radius = curReveal.current;
-      const hasMousen = mx >= 0 && radius > 0.5;
-      const innerR = radius * (1 - EDGE_FRAC);
+      const radius = curR.current;
 
-      for (let row = 0; row < rows; row++) {
-        for (let col = 0; col < cols; col++) {
-          const cell = cellList[row * cols + col];
-          if (!cell?.hasContent || cell.ch === " ") continue;
-
-          const cx = col * CELL + CELL / 2;
-          const cy = row * CELL + CELL / 2;
-
-          let drawAlpha = 1;
-          if (hasMousen) {
-            const dx = cx - mx;
-            const dy = cy - my;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < innerR) continue; // fully revealed — skip char
-            if (dist < radius) {
-              const t = (dist - innerR) / (radius - innerR);
-              drawAlpha = t * t; // quadratic ease
-            }
-          }
-
-          const alpha = drawAlpha * (0.28 + cell.brightness * 0.62);
-          if (alpha < 0.02) continue;
-
-          // Violet-purple, slightly warmer for brighter cells
-          const rb = Math.round(167 + cell.brightness * 20);
-          const gb = Math.round(139 + cell.brightness * 10);
-          ctx.fillStyle = `rgba(${rb},${gb},250,${alpha.toFixed(3)})`;
-          ctx.fillText(cell.ch, col * CELL, row * CELL);
-        }
+      if (mx >= 0 && radius > 0.5) {
+        ctx.globalCompositeOperation = "destination-out";
+        const grad = ctx.createRadialGradient(mx, my, 0, mx, my, radius);
+        grad.addColorStop(0,    "rgba(0,0,0,1)");    // fully erased → photo visible
+        grad.addColorStop(0.55, "rgba(0,0,0,0.9)");
+        grad.addColorStop(0.85, "rgba(0,0,0,0.4)");
+        grad.addColorStop(1,    "rgba(0,0,0,0)");    // mask intact
+        ctx.fillStyle = grad;
+        ctx.fillRect(mx - radius, my - radius, radius * 2, radius * 2);
+        ctx.globalCompositeOperation = "source-over";
       }
 
       animId = requestAnimationFrame(draw);
@@ -180,25 +154,25 @@ export function AsciiPortrait() {
     return () => {
       cancelAnimationFrame(animId);
       ro.disconnect();
-      container.removeEventListener("mousemove", onMouseMove);
-      container.removeEventListener("mouseleave", onMouseLeave);
+      container.removeEventListener("mousemove", onMove);
+      container.removeEventListener("mouseleave", onLeave);
     };
   }, []);
 
   return (
     <div
       ref={containerRef}
-      className="relative w-full h-full select-none"
+      className="relative w-full h-full select-none overflow-hidden"
       style={{ cursor: "crosshair" }}
     >
-      {/* Real photo — revealed by mouse */}
+      {/* Photo — fully visible underneath, revealed by spotlight */}
       <img
         src={specialistImg}
         alt="Luís Guedes"
         className="absolute inset-0 w-full h-full object-contain object-center pointer-events-none"
         draggable={false}
       />
-      {/* ASCII overlay canvas */}
+      {/* Canvas mask + ASCII layer on top */}
       <canvas
         ref={canvasRef}
         className="absolute inset-0 w-full h-full"
