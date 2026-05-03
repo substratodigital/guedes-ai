@@ -1,7 +1,6 @@
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import Clientes from "@/components/Clientes";
-import Stats from "@/components/Stats";
 import Bio from "@/components/Bio";
 import Palestras from "@/components/Palestras";
 import Trajetoria from "@/components/Trajetoria";
@@ -22,7 +21,6 @@ export default function Home() {
       <div className="w-full flex flex-col items-center relative z-10">
         <Hero />
         <Clientes />
-        <Stats />
         <Bio />
         <Palestras />
         <Trajetoria />
