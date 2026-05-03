@@ -1,12 +1,11 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Megaphone, CheckCircle2, AlertTriangle } from "lucide-react";
-import ia360 from "@assets/image_1777765594782.png";
-import iaAcelerando from "@assets/image_1777765683539.png";
-import caminhar from "@assets/image_1777765706628.png";
+import { Megaphone, CheckCircle2, AlertTriangle, ArrowRight } from "lucide-react";
+import ia360img from "@assets/palestra_IA360_1777778290405.webp";
+import acelerandoImg from "@assets/palestra_acelerando_implementacao_1777778290405.webp";
+import caminharImg from "@assets/palestra_800km_1777778290404.webp";
 
 type Detail =
-  | { kind: "text"; text: string }
   | { kind: "two-col"; left: { icon: "check" | "alert"; label: string; items: { title: string; desc: string }[] }; right: { icon: "check" | "alert"; label: string; items: { title: string; desc: string }[] } }
   | { kind: "grid"; items: { title: string; desc: string }[] }
   | { kind: "quote"; text: string };
@@ -17,7 +16,6 @@ interface Palestra {
   title: string;
   badge: string;
   audience: string;
-  desc: string;
   image: string;
   accentColor: string;
   tagline: string;
@@ -31,9 +29,8 @@ const palestras: Palestra[] = [
     num: "01",
     title: "IA | 360",
     badge: "Palestra / Mini-curso",
-    audience: "Executivos, líderes, famílias",
-    desc: "Visão 360° do impacto da IA na carreira, empresa, família e sociedade.",
-    image: ia360,
+    audience: "Executivos · Líderes · Famílias",
+    image: ia360img,
     accentColor: "#6366f1",
     tagline: "Fundamentos de IA para um novo mundo",
     fullDesc:
@@ -42,22 +39,10 @@ const palestras: Palestra[] = [
       {
         kind: "grid",
         items: [
-          {
-            title: "Sua Carreira e Seu Futuro",
-            desc: "Como a IA pode ser utilizada para acelerar seu aprendizado, aumentar sua eficiência e influência, agora e no futuro próximo.",
-          },
-          {
-            title: "Sua Empresa e Seu Time",
-            desc: "Em tempos turbulentos, a liderança faz toda a diferença; discutiremos como a IA pode estar a serviço do futuro.",
-          },
-          {
-            title: "Seus Filhos e Sua Família",
-            desc: "As oportunidades com o uso da IA são do tamanho dos desafios: técnicos, humanos, éticos. Como apoiar os nossos?",
-          },
-          {
-            title: "Sociedade e um Bem Maior",
-            desc: "Como líderes e pessoas influentes podem utilizar ferramentas de IA para apoiar o progresso de suas comunidades.",
-          },
+          { title: "Sua Carreira e Seu Futuro", desc: "Como a IA pode acelerar seu aprendizado, aumentar sua eficiência e influência, agora e no futuro próximo." },
+          { title: "Sua Empresa e Seu Time", desc: "Em tempos turbulentos, a liderança faz toda a diferença; como a IA pode estar a serviço do futuro." },
+          { title: "Seus Filhos e Sua Família", desc: "As oportunidades com o uso da IA são do tamanho dos desafios: técnicos, humanos, éticos. Como apoiar os nossos?" },
+          { title: "Sociedade e um Bem Maior", desc: "Como líderes podem utilizar ferramentas de IA para apoiar o progresso de suas comunidades." },
         ],
       },
     ],
@@ -68,8 +53,7 @@ const palestras: Palestra[] = [
     title: "Acelerando a Implementação da IA",
     badge: "Palestra",
     audience: "C-level · Inovação",
-    desc: "Drives e riscos da adoção de IA — eficiência, governança e inovação.",
-    image: iaAcelerando,
+    image: acelerandoImg,
     accentColor: "#8b5cf6",
     tagline: "Acelerando a implementação da IA nas organizações",
     fullDesc:
@@ -81,28 +65,16 @@ const palestras: Palestra[] = [
           icon: "check",
           label: "Drives",
           items: [
-            {
-              title: "Eficiência",
-              desc: "A primeira fronteira da adoção de IA é a busca pelo aumento da eficiência. Não uma revolução, mas uma evolução no que fazemos hoje.",
-            },
-            {
-              title: "Acelerar a Inovação",
-              desc: "A IA deve estar a serviço da inovação em suas mais diversas formas: tecnológica, gerencial, nos processos.",
-            },
+            { title: "Eficiência", desc: "A primeira fronteira da adoção de IA é a busca pelo aumento da eficiência. Não uma revolução, mas uma evolução no que fazemos hoje." },
+            { title: "Acelerar a Inovação", desc: "A IA deve estar a serviço da inovação em suas mais diversas formas: tecnológica, gerencial, nos processos." },
           ],
         },
         right: {
           icon: "alert",
           label: "Riscos",
           items: [
-            {
-              title: "Excesso de Confiança",
-              desc: "Os LLMs foram treinados para a inteligibilidade e não para a acurácia. Quais as boas práticas para não dar às máquinas maior credibilidade do que é aceitável.",
-            },
-            {
-              title: "Delegação para IA",
-              desc: "A comunidade acadêmica e as boas práticas indicam que o humano deve estar no controle das decisões, mesmo daquelas que foram indicadas por IA.",
-            },
+            { title: "Excesso de Confiança", desc: "Os LLMs foram treinados para a inteligibilidade e não para a acurácia. Quais as boas práticas para não dar às máquinas maior credibilidade do que é aceitável." },
+            { title: "Delegação para IA", desc: "A comunidade acadêmica e as boas práticas indicam que o humano deve estar no controle das decisões, mesmo daquelas indicadas por IA." },
           ],
         },
       },
@@ -114,8 +86,7 @@ const palestras: Palestra[] = [
     title: "800 km, Um Passo de Cada Vez",
     badge: "Palestra Motivacional",
     audience: "Todos os públicos",
-    desc: "Lições do Caminho de Santiago aplicadas à vida corporativa.",
-    image: caminhar,
+    image: caminharImg,
     accentColor: "#0d9488",
     tagline: "Inspiração e energia para a mudança",
     fullDesc:
@@ -124,22 +95,10 @@ const palestras: Palestra[] = [
       {
         kind: "grid",
         items: [
-          {
-            title: "Superação e Resiliência",
-            desc: "As lições de superação, solidariedade, confiança e a tenacidade apoiam a reflexão de como podemos nos planejar para fazer grandes coisas.",
-          },
-          {
-            title: "Planejamento do Caminho",
-            desc: "É bom que se esperem dificuldades ao longo do percurso. A conversa se estabelece ao redor dos desafios típicos do ambiente corporativo.",
-          },
-          {
-            title: "Estabelecer as Condições",
-            desc: "Convida os participantes a estabelecerem suas próprias condições, a traçar o caminho e arrumar sua mochila.",
-          },
-          {
-            title: "Escolher sua Companhia",
-            desc: "Sobretudo, escolher com cuidado sua companhia — um dos ensinamentos mais valiosos do Caminho de Santiago.",
-          },
+          { title: "Superação e Resiliência", desc: "As lições de superação, solidariedade, confiança e a tenacidade apoiam a reflexão de como podemos nos planejar para fazer grandes coisas." },
+          { title: "Planejamento do Caminho", desc: "É bom que se esperem dificuldades ao longo do percurso. A conversa se estabelece ao redor dos desafios típicos do ambiente corporativo." },
+          { title: "Estabelecer as Condições", desc: "Convida os participantes a estabelecerem suas próprias condições, a traçar o caminho e arrumar sua mochila." },
+          { title: "Escolher sua Companhia", desc: "Sobretudo, escolher com cuidado sua companhia — um dos ensinamentos mais valiosos do Caminho de Santiago." },
         ],
       },
       {
@@ -150,33 +109,23 @@ const palestras: Palestra[] = [
   },
 ];
 
-function DetailBlock({ detail }: { detail: Detail }) {
-  if (detail.kind === "text") {
-    return <p className="text-sm text-foreground/60 leading-relaxed">{detail.text}</p>;
-  }
-
+function DetailBlock({ detail, accent }: { detail: Detail; accent: string }) {
   if (detail.kind === "quote") {
     return (
-      <blockquote className="border-l-2 border-primary pl-5 py-1">
-        <p className="font-serif italic text-foreground/70 text-base leading-relaxed">"{detail.text}"</p>
+      <blockquote className="border-l-2 pl-5 py-1 mt-2" style={{ borderColor: accent }}>
+        <p className="font-mono italic text-foreground/70 text-sm leading-relaxed">"{detail.text}"</p>
       </blockquote>
     );
   }
 
   if (detail.kind === "grid") {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
         {detail.items.map((item, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.06 }}
-            className="rounded-2xl border border-border bg-card p-4"
-          >
-            <h4 className="text-sm font-semibold text-foreground mb-1">{item.title}</h4>
+          <div key={i} className="border border-border p-4 rounded-none bg-foreground/[0.02]">
+            <h4 className="text-xs font-bold text-foreground uppercase tracking-wide mb-1.5">{item.title}</h4>
             <p className="text-xs text-foreground/55 leading-relaxed">{item.desc}</p>
-          </motion.div>
+          </div>
         ))}
       </div>
     );
@@ -184,28 +133,18 @@ function DetailBlock({ detail }: { detail: Detail }) {
 
   if (detail.kind === "two-col") {
     const renderSide = (side: typeof detail.left) => (
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-2">
         <div className="flex items-center gap-2 mb-1">
-          {side.icon === "check" ? (
-            <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-          ) : (
-            <AlertTriangle className="w-4 h-4 text-amber-500" />
-          )}
-          <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-foreground/50">
-            {side.label}
-          </span>
+          {side.icon === "check"
+            ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+            : <AlertTriangle className="w-3.5 h-3.5 text-amber-500" />}
+          <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-foreground/40">{side.label}</span>
         </div>
         {side.items.map((item, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.08 }}
-            className="rounded-2xl border border-border bg-card p-4"
-          >
-            <h4 className="text-sm font-semibold text-foreground mb-1">{item.title}</h4>
+          <div key={i} className="border border-border p-4 rounded-none bg-foreground/[0.02]">
+            <h4 className="text-xs font-bold text-foreground uppercase tracking-wide mb-1.5">{item.title}</h4>
             <p className="text-xs text-foreground/55 leading-relaxed">{item.desc}</p>
-          </motion.div>
+          </div>
         ))}
       </div>
     );
@@ -227,7 +166,8 @@ export default function Palestras() {
   return (
     <section id="palestras" className="w-full py-32 px-6">
       <div className="max-w-7xl mx-auto">
-        {/* Section label */}
+
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -235,19 +175,17 @@ export default function Palestras() {
           transition={{ duration: 0.5 }}
           className="mb-20"
         >
-          <div className="text-[11px] uppercase tracking-[0.22em] text-primary font-bold mb-4">
-            PALESTRAS
-          </div>
+          <div className="text-[11px] uppercase tracking-[0.22em] text-primary font-bold mb-4">PALESTRAS</div>
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground max-w-xl">
             Temas para Contratação
           </h2>
         </motion.div>
 
-        {/* Two-column layout */}
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start">
+        {/* Layout */}
+        <div className="flex flex-col lg:flex-row gap-0 items-stretch">
 
-          {/* LEFT — nav list */}
-          <div className="lg:w-[340px] shrink-0 flex flex-col gap-1">
+          {/* LEFT — brutalist compact tabs */}
+          <div className="lg:w-[260px] shrink-0 border-t border-border">
             {palestras.map((item, i) => {
               const isActive = i === active;
               return (
@@ -255,129 +193,129 @@ export default function Palestras() {
                   key={item.id}
                   type="button"
                   onClick={() => setActive(i)}
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={{ opacity: 0, x: -16 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.45, delay: i * 0.1 }}
-                  className={`group relative text-left rounded-2xl px-5 py-5 transition-all duration-300 border focus:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
-                    isActive
-                      ? "bg-card border-border shadow-lg"
-                      : "border-transparent hover:bg-foreground/[0.04]"
+                  transition={{ duration: 0.4, delay: i * 0.08 }}
+                  className={`relative w-full text-left border-b border-border px-5 py-5 transition-all duration-200 focus:outline-none group ${
+                    isActive ? "bg-foreground/[0.04]" : "hover:bg-foreground/[0.02]"
                   }`}
                 >
-                  {/* Active accent line */}
-                  {isActive && (
-                    <motion.div
-                      layoutId="active-bar"
-                      className="absolute left-0 top-4 bottom-4 w-[3px] rounded-full"
-                      style={{ background: item.accentColor }}
-                      transition={{ type: "spring", stiffness: 300, damping: 28 }}
-                    />
-                  )}
+                  {/* Active accent left bar */}
+                  <div
+                    className="absolute left-0 top-0 bottom-0 w-[3px] transition-opacity duration-200"
+                    style={{
+                      background: item.accentColor,
+                      opacity: isActive ? 1 : 0,
+                    }}
+                  />
 
-                  <div className="flex items-start gap-4 pl-1">
+                  <div className="pl-1">
                     <span
-                      className="text-[10px] font-bold mt-0.5 shrink-0 transition-colors duration-200"
-                      style={{ color: isActive ? item.accentColor : "var(--color-foreground)" + "60" }}
+                      className="font-mono text-[10px] block mb-1 transition-colors"
+                      style={{ color: isActive ? item.accentColor : "rgba(var(--foreground-rgb, 255 255 255) / 0.25)" }}
                     >
                       {item.num}
                     </span>
-                    <div>
-                      <p
-                        className="text-base font-semibold leading-snug transition-colors duration-200"
-                        style={{ color: isActive ? "var(--foreground)" : undefined }}
-                      >
-                        {item.title}
-                      </p>
-                      <p
-                        className={`text-xs mt-1 leading-relaxed transition-colors duration-200 ${
-                          isActive ? "text-foreground/60" : "text-foreground/35"
-                        }`}
-                      >
-                        {item.desc}
-                      </p>
-                    </div>
+                    <span
+                      className={`text-sm font-semibold leading-snug block transition-colors ${
+                        isActive ? "text-foreground" : "text-foreground/45 group-hover:text-foreground/70"
+                      }`}
+                    >
+                      {item.title}
+                    </span>
+                    <span className={`text-[10px] mt-0.5 block transition-colors ${isActive ? "text-foreground/50" : "text-foreground/25"}`}>
+                      {item.badge}
+                    </span>
                   </div>
                 </motion.button>
               );
             })}
 
-            {/* CTA below nav */}
-            <div className="mt-6 px-5">
+            {/* Agendar CTA below tabs */}
+            <div className="px-5 pt-6">
               <a
                 href="#contato"
-                className="inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold text-white transition-all hover:opacity-85 focus:outline-none"
-                style={{ background: p.accentColor }}
+                className="flex items-center justify-between w-full text-sm font-semibold text-foreground border border-border px-4 py-3 hover:bg-foreground/[0.04] transition-colors group"
+                style={{ borderRadius: 0 }}
               >
-                <Megaphone className="w-4 h-4" />
                 Agendar palestra
+                <ArrowRight className="w-4 h-4 text-foreground/40 group-hover:translate-x-1 transition-transform" />
               </a>
             </div>
           </div>
 
-          {/* RIGHT — content panel */}
-          <div className="flex-1 min-w-0">
+          {/* Vertical divider on desktop */}
+          <div className="hidden lg:block w-px bg-border shrink-0" />
+
+          {/* RIGHT — content panel, brutalist */}
+          <div className="flex-1 min-w-0 border-t border-border">
             <AnimatePresence mode="wait">
               <motion.div
                 key={p.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -16 }}
-                transition={{ duration: 0.32, ease: "easeOut" }}
-                className="flex flex-col gap-8"
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.28, ease: "easeOut" }}
+                className="p-8 lg:p-10 flex flex-col gap-8"
               >
-                {/* Image */}
-                <div
-                  className="relative w-full rounded-3xl overflow-hidden"
-                  style={{ aspectRatio: "16/9" }}
-                >
-                  <img
-                    src={p.image}
-                    alt={p.title}
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
-                  {/* Subtle gradient overlay at bottom */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
-                  {/* Glow tint */}
-                  <div
-                    className="absolute inset-0 opacity-20"
-                    style={{
-                      background: `radial-gradient(ellipse at bottom left, ${p.accentColor}, transparent 65%)`,
-                    }}
-                  />
-                  {/* Bottom meta */}
-                  <div className="absolute bottom-0 left-0 right-0 p-6 flex flex-wrap gap-2">
-                    <span className="inline-flex items-center gap-1.5 text-[10px] font-medium text-white bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">
-                      <Megaphone className="w-3 h-3" /> {p.badge}
-                    </span>
-                    <span className="inline-flex items-center text-[10px] font-medium text-white/80 bg-black/30 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">
-                      {p.audience}
-                    </span>
+                {/* Top row: meta + thumbnail */}
+                <div className="flex items-start justify-between gap-6">
+                  <div className="flex-1">
+                    {/* Num + badge row */}
+                    <div className="flex items-center gap-3 mb-4">
+                      <span className="font-mono text-[11px] text-foreground/30">{p.num} /</span>
+                      <span
+                        className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.18em] px-2.5 py-1 border"
+                        style={{ color: p.accentColor, borderColor: `${p.accentColor}50`, background: `${p.accentColor}10` }}
+                      >
+                        <Megaphone className="w-3 h-3" /> {p.badge}
+                      </span>
+                      <span className="text-[10px] text-foreground/35 border border-border px-2.5 py-1">
+                        {p.audience}
+                      </span>
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-foreground leading-tight mb-2">
+                      {p.title}
+                    </h3>
+
+                    {/* Tagline — monospace accent */}
+                    <p className="font-mono text-[11px] uppercase tracking-[0.18em] mb-5" style={{ color: p.accentColor }}>
+                      — {p.tagline}
+                    </p>
+
+                    {/* Description */}
+                    <p className="text-sm text-foreground/60 leading-relaxed max-w-xl">
+                      {p.fullDesc}
+                    </p>
+                  </div>
+
+                  {/* Thumbnail — small, secondary */}
+                  <div className="hidden md:block shrink-0 border border-border overflow-hidden" style={{ width: 180, aspectRatio: "16/9" }}>
+                    <img
+                      src={p.image}
+                      alt={p.title}
+                      className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity"
+                    />
                   </div>
                 </div>
 
-                {/* Text content */}
-                <div>
-                  <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-1">
-                    {p.title}
-                  </h3>
-                  <p className="text-sm font-medium mb-4" style={{ color: p.accentColor }}>
-                    {p.tagline}
-                  </p>
-                  <p className="text-sm text-foreground/60 leading-relaxed max-w-prose">
-                    {p.fullDesc}
-                  </p>
-                </div>
+                {/* Divider */}
+                <div className="border-t border-border" />
 
                 {/* Detail blocks */}
                 <div className="flex flex-col gap-6">
                   {p.details.map((d, i) => (
-                    <DetailBlock key={i} detail={d} />
+                    <DetailBlock key={i} detail={d} accent={p.accentColor} />
                   ))}
                 </div>
+
               </motion.div>
             </AnimatePresence>
           </div>
+
         </div>
       </div>
     </section>
