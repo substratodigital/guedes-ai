@@ -11,12 +11,10 @@ import Newsletter from "@/components/Newsletter";
 import Contato from "@/components/Contato";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
-import { GradientMesh } from "@/components/GradientMesh";
 
 export default function Home() {
   return (
     <div className="relative w-full flex flex-col items-center overflow-hidden">
-      <GradientMesh />
       <Nav />
       <div className="w-full flex flex-col items-center relative z-10">
         <Hero />
