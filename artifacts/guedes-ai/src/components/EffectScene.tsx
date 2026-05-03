@@ -59,9 +59,9 @@ function R3FScene({
             aberrationStrength: 0.0008,
             brightnessAdjust:   -0.03,
             contrastAdjust:     1.07,
-            mouseGlowEnabled:   true,
-            mouseGlowRadius:    220,
-            mouseGlowIntensity: 1.3,
+            mouseGlowEnabled:   false,
+            mouseGlowRadius:    0,
+            mouseGlowIntensity: 0,
             vignetteIntensity:  0.55,
             vignetteRadius:     0.85,
             noiseIntensity:     0.04,
@@ -301,19 +301,8 @@ function Canvas2DScene() {
           dCtx.globalCompositeOperation = "source-over"
         }
 
-        // Mouse glow
+        // Mouse glow disabled
         gCtx.clearRect(0, 0, W, H)
-        if (mx.current.x >= 0) {
-          const { x, y } = mx.current
-          const g = gCtx.createRadialGradient(x, y, 0, x, y, MOUSE_R)
-          g.addColorStop(0,   `rgba(190,215,255,${MOUSE_I})`)
-          g.addColorStop(0.5, `rgba(90,130,255,${MOUSE_I * 0.3})`)
-          g.addColorStop(1,   "rgba(0,0,0,0)")
-          gCtx.globalCompositeOperation = "screen"
-          gCtx.fillStyle = g
-          gCtx.fillRect(0, 0, W, H)
-          gCtx.globalCompositeOperation = "source-over"
-        }
       } else {
         dCtx.fillStyle = "#080614"
         dCtx.fillRect(0, 0, W, H)

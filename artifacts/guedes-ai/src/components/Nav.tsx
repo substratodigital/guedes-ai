@@ -1,14 +1,20 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sun, Moon } from "lucide-react";
+import { Sun, Moon, ChevronDown, Check } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
 import { useLanguage, type Language } from "@/context/LanguageContext";
 
-const LANGS: Language[] = ["pt", "en", "es"];
+const LANG_LABELS: Record<Language, string> = {
+  pt: "Português",
+  en: "English",
+  es: "Español",
+};
 
 export default function Nav() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
+  const langRef = useRef<HTMLDivElement>(null);
   const { theme, toggleTheme } = useTheme();
   const { lang, setLang, t } = useLanguage();
 
@@ -23,17 +29,23 @@ export default function Nav() {
     return () => { document.body.style.overflow = ""; };
   }, [menuOpen]);
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (langRef.current && !langRef.current.contains(e.target as Node)) {
+        setLangOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, []);
+
   const scrollTo = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     setMenuOpen(false);
     setTimeout(() => {
       document.getElementById(href.replace("#", ""))?.scrollIntoView({ behavior: "smooth" });
     }, menuOpen ? 400 : 0);
-  };
-
-  const cycleLang = () => {
-    const next = LANGS[(LANGS.indexOf(lang) + 1) % LANGS.length];
-    setLang(next);
   };
 
   const navBg = isScrolled
@@ -71,15 +83,47 @@ export default function Nav() {
 
           {/* Right actions */}
           <div className="flex items-center gap-2 z-[110] relative">
-            {/* Language cycle button */}
-            <button
-              onClick={cycleLang}
-              aria-label="Switch language"
-              data-testid="button-lang-toggle"
-              className="w-9 h-9 flex items-center justify-center rounded-full border border-border text-foreground/60 hover:text-foreground hover:border-foreground/30 transition-all"
-            >
-              <span className="text-[10px] font-bold tracking-wider uppercase">{lang}</span>
-            </button>
+
+            {/* Language dropdown */}
+            <div ref={langRef} className="relative">
+              <button
+                onClick={() => setLangOpen((v) => !v)}
+                aria-label="Switch language"
+                data-testid="button-lang-toggle"
+                className="flex items-center gap-1.5 h-9 px-3 rounded-full border border-border text-foreground/60 hover:text-foreground hover:border-foreground/30 transition-all"
+              >
+                <span className="text-[11px] font-bold tracking-wider uppercase">{lang}</span>
+                <ChevronDown
+                  className={`w-3 h-3 transition-transform duration-200 ${langOpen ? "rotate-180" : ""}`}
+                  strokeWidth={1.5}
+                />
+              </button>
+
+              <AnimatePresence>
+                {langOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -6, scale: 0.97 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -6, scale: 0.97 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute right-0 mt-2 w-36 rounded-xl border border-border bg-card/95 backdrop-blur-md shadow-lg overflow-hidden"
+                  >
+                    {(["pt", "en", "es"] as Language[]).map((l) => (
+                      <button
+                        key={l}
+                        onClick={() => { setLang(l); setLangOpen(false); }}
+                        className="flex items-center justify-between w-full px-4 py-2.5 text-[13px] text-left hover:bg-foreground/[0.06] transition-colors"
+                      >
+                        <span className={lang === l ? "text-foreground font-medium" : "text-foreground/60"}>
+                          {LANG_LABELS[l]}
+                        </span>
+                        {lang === l && <Check className="w-3.5 h-3.5 text-primary" strokeWidth={2} />}
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
 
             {/* Theme toggle */}
             <button
@@ -91,11 +135,11 @@ export default function Nav() {
               <AnimatePresence mode="wait" initial={false}>
                 {theme === "dark" ? (
                   <motion.span key="sun" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.15 }}>
-                    <Sun className="w-4 h-4" />
+                    <Sun className="w-4 h-4" strokeWidth={1.5} />
                   </motion.span>
                 ) : (
                   <motion.span key="moon" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.15 }}>
-                    <Moon className="w-4 h-4" />
+                    <Moon className="w-4 h-4" strokeWidth={1.5} />
                   </motion.span>
                 )}
               </AnimatePresence>
@@ -174,7 +218,7 @@ export default function Nav() {
               ))}
             </div>
 
-            {/* Bottom CTA */}
+            {/* Bottom — language selector + CTA */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -182,6 +226,23 @@ export default function Nav() {
               transition={{ duration: 0.35, delay: 0.38 }}
               className="shrink-0 px-6 py-8 border-t border-border"
             >
+              {/* Mobile language switcher */}
+              <div className="flex gap-2 mb-4">
+                {(["pt", "en", "es"] as Language[]).map((l) => (
+                  <button
+                    key={l}
+                    onClick={() => setLang(l)}
+                    className={`flex-1 py-2 rounded-xl text-[12px] font-bold uppercase tracking-wider border transition-all ${
+                      lang === l
+                        ? "bg-primary text-primary-foreground border-primary"
+                        : "border-border text-foreground/40 hover:text-foreground hover:border-foreground/30"
+                    }`}
+                  >
+                    {l}
+                  </button>
+                ))}
+              </div>
+
               <a
                 href="#contato"
                 onClick={(e) => scrollTo(e, "#contato")}
