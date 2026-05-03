@@ -37,8 +37,8 @@ function R3FScene({
   const { camera } = useThree()
 
   useFrame(() => {
-    camera.position.x += (mouseNorm.x * 0.35 - camera.position.x) * 0.05
-    camera.position.y += (mouseNorm.y * 0.22 - camera.position.y) * 0.05
+    camera.position.x += (0 - camera.position.x) * 0.05
+    camera.position.y += (0 - camera.position.y) * 0.05
   })
 
   return (
@@ -286,20 +286,10 @@ function Canvas2DScene() {
         const s   = staticCvs.current
         const sW  = s.width
         const sH  = s.height
-        const ox  = (sW - W) * 0.5 + norm.current.x * (sW - W) * 0.5
-        const oy  = (sH - H) * 0.5 - norm.current.y * (sH - H) * 0.5
-        // Draw ASCII with parallax offset
+        const ox  = (sW - W) * 0.5
+        const oy  = (sH - H) * 0.5
+        // Draw ASCII centered (no parallax)
         dCtx.drawImage(s, ox, oy, W, H, 0, 0, W, H)
-
-        // Animated noise overlay
-        buildNoise()
-        if (noiseRef.current) {
-          dCtx.globalCompositeOperation = "screen"
-          const pat = dCtx.createPattern(noiseRef.current, "repeat")!
-          dCtx.fillStyle = pat
-          dCtx.fillRect(0, 0, W, H)
-          dCtx.globalCompositeOperation = "source-over"
-        }
 
         // Mouse glow disabled
         gCtx.clearRect(0, 0, W, H)
