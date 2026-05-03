@@ -13,7 +13,7 @@ export default function Bio() {
           viewport={{ once: true }}
           transition={{ duration: 0.5, ease: "easeOut" }}
         >
-          <div className="text-[11px] uppercase tracking-[0.2em] text-primary font-bold mb-6">
+          <div className="text-[11px] uppercase tracking-[0.2em] text-primary font-pixel mb-6">
             {t.bio.label}
           </div>
 

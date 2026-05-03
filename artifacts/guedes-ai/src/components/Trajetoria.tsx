@@ -141,7 +141,7 @@ export default function Trajetoria() {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="mb-20"
         >
-          <div className="text-[11px] uppercase tracking-[0.22em] text-primary font-bold mb-4">
+          <div className="text-[11px] uppercase tracking-[0.22em] text-primary font-pixel mb-4">
             {t.trajetoria.label}
           </div>
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground" style={{ whiteSpace: "pre-line" }}>

@@ -38,7 +38,7 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mb-8"
         >
-          <span className="inline-flex items-center gap-2 text-[11px] font-medium text-white/70 border border-white/20 bg-white/5 backdrop-blur-sm rounded-full px-4 py-1.5 tracking-wide">
+          <span className="inline-flex items-center gap-2 text-[11px] font-pixel text-white/70 border border-white/20 bg-white/5 backdrop-blur-sm rounded-full px-4 py-1.5 tracking-widest uppercase">
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
             {t.hero.badge}
           </span>
@@ -49,7 +49,8 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.35 }}
-          className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tight text-white leading-none mb-4"
+          className="font-sans font-bold tracking-tight text-white leading-none mb-4"
+          style={{ fontSize: "clamp(52px, 10vw, 120px)" }}
         >
           Luís Guedes
         </motion.h1>

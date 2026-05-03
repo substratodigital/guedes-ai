@@ -16,7 +16,7 @@ export default function Clientes() {
           viewport={{ once: true }}
           transition={{ duration: 0.5, ease: "easeOut" }}
         >
-          <div className="text-[11px] uppercase tracking-[0.2em] text-primary font-bold mb-4">
+          <div className="text-[11px] uppercase tracking-[0.2em] text-primary font-pixel mb-4">
             {t.clientes.label}
           </div>
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground mb-4">

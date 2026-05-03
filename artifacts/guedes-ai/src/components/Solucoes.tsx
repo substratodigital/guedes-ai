@@ -14,7 +14,7 @@ export default function Solucoes() {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="mb-16"
         >
-          <div className="text-[11px] uppercase tracking-[0.2em] text-primary font-bold mb-4">
+          <div className="text-[11px] uppercase tracking-[0.2em] text-primary font-pixel mb-4">
             {t.solucoes.label}
           </div>
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground">
