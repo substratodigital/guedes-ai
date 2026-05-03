@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { MessageSquare, Phone, Mail, Linkedin, Globe } from "lucide-react";
+import { MessageSquare, Phone, Mail, Linkedin } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(2, "Nome é obrigatório"),
@@ -89,13 +89,6 @@ export default function Contato() {
               </div>
             </a>
 
-            <a href="https://knp.com.br" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 py-4 border-b border-border group">
-              <Globe className="w-5 h-5 text-foreground/40 group-hover:text-primary transition-colors" />
-              <div className="flex flex-col">
-                <span className="text-xs font-medium text-foreground/40 uppercase tracking-widest mb-1">KNP</span>
-                <span className="text-sm font-medium text-foreground/80 group-hover:text-foreground transition-colors">knp.com.br</span>
-              </div>
-            </a>
           </motion.div>
 
           {/* Right: Form */}
