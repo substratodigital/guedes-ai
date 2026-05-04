@@ -16,7 +16,9 @@ export default function Hero() {
       style={{ background: "hsl(240 6% 4%)" }}
     >
       {/* ASCII shader background */}
-      <EffectScene cellSize={7} colorPalette={0} mouseGlow={true} />
+      <div className="absolute left-0 right-0 -top-[15vh] h-[115vh] sm:top-0 sm:h-full">
+        <EffectScene cellSize={7} colorPalette={0} mouseGlow={true} />
+      </div>
 
       {/* Dark gradient overlay for text legibility */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70 pointer-events-none z-[1]" />
@@ -30,7 +32,7 @@ export default function Hero() {
       />
 
       {/* Centered content */}
-      <div className="relative z-10 flex flex-col items-center text-center max-w-5xl mx-auto w-full px-6 pt-24 sm:pt-0">
+      <div className="relative z-10 flex flex-col items-center text-center max-w-5xl mx-auto w-full px-6 pt-[50vh] sm:pt-0">
           
         {/* Badge */}
         <motion.div
@@ -63,7 +65,7 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.5 }}
           className="mb-10 lg:mb-12 w-full max-w-2xl"
         >
-          <p className="inline-block text-base sm:text-lg md:text-xl text-white/80 font-medium tracking-wide leading-snug">
+          <p className="inline-block text-base sm:text-lg md:text-xl text-white/80 font-medium tracking-wide leading-snug whitespace-pre-line">
             {t.hero.p}
           </p>
         </motion.div>
