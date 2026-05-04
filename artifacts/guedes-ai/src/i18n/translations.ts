@@ -20,7 +20,7 @@ export const translations = {
     },
     clientes: {
       label: "CLIENTES",
-      h2: "Mais de 100 Organizações Atendidas",
+      h2: "+100 organizações atendidas nos últimos 5 anos",
       countries: "Brasil · EUA · Egito · Colômbia · Espanha",
     },
     bio: {
@@ -297,7 +297,7 @@ export const translations = {
     },
     clientes: {
       label: "CLIENTS",
-      h2: "Over 100 Organizations Served",
+      h2: "+100 organizations served in the last 5 years",
       countries: "Brazil · USA · Egypt · Colombia · Spain",
     },
     bio: {
@@ -517,7 +517,7 @@ export const translations = {
     },
     clientes: {
       label: "CLIENTES",
-      h2: "Más de 100 Organizaciones Atendidas",
+      h2: "+100 organizaciones atendidas en los últimos 5 años",
       countries: "Brasil · EUA · Egipto · Colombia · España",
     },
     bio: {
