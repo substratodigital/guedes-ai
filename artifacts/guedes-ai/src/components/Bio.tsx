@@ -47,11 +47,11 @@ export default function Bio() {
           <div className="mb-12">
             <Dialog>
               <DialogTrigger asChild>
-                <Button className="rounded-full bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-base font-semibold shadow-lg shadow-primary/20 transition-all duration-300">
+                <Button variant="outline" className="rounded-full border-primary/30 bg-transparent hover:bg-primary/10 text-primary px-6 py-5 text-sm font-medium transition-all duration-300">
                   + BIO
                 </Button>
               </DialogTrigger>
-              <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto bg-card border-border">
+              <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto bg-card border-border custom-scrollbar">
                 <DialogHeader>
                   <DialogTitle className="text-2xl font-bold mb-4">Luís Guedes, PhD</DialogTitle>
                 </DialogHeader>

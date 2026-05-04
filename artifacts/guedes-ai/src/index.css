@@ -283,3 +283,23 @@ body::before {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* ── Custom Scrollbar ── */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #000;
+  border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary));
+  border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary) / 0.8);
+}
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--primary)) #000;
+}
