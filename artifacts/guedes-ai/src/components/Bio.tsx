@@ -47,7 +47,7 @@ export default function Bio() {
           <div className="mb-12">
             <Dialog>
               <DialogTrigger asChild>
-                <Button variant="outline" className="rounded-full border-primary/30 bg-transparent hover:bg-primary/10 text-primary px-6 py-5 text-sm font-medium transition-all duration-300">
+                <Button variant="outline" className="rounded-full border-primary/30 bg-transparent hover:bg-primary/10 text-primary px-5 py-2 text-sm font-medium transition-all duration-300 h-auto">
                   + BIO
                 </Button>
               </DialogTrigger>
