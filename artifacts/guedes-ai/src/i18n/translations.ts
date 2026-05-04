@@ -2,12 +2,10 @@ export const translations = {
   pt: {
     nav: {
       links: [
-        { name: "Clientes",    href: "#clientes" },
+        { name: "Sobre",       href: "#trajetoria" },
         { name: "Palestras",   href: "#palestras" },
-        { name: "Trajetória",  href: "#trajetoria" },
         { name: "Publicações", href: "#publicacoes" },
-        { name: "Soluções",    href: "#solucoes" },
-        { name: "Contato",     href: "#contato" },
+        { name: "Serviços",    href: "#solucoes" },
       ],
       cta: "Agendar Palestra",
       menu: "Menu",
@@ -15,9 +13,9 @@ export const translations = {
     hero: {
       badge: "Pós-Doutor em IA pela FEA/USP",
       h2: "IA e Inovação para o Futuro",
-      p: "Professor-Doutor · Palestrante Internacional · Consultor Estratégico",
+      p: "Especialista em estratégia, inovação e ESG",
       cta1: "Agendar Palestra",
-      cta2: "Ver Palestras",
+      cta2: "Palestras",
       stats: ["100+ Palestras", "30+ Anos", "5 países"],
     },
     clientes: {
@@ -27,10 +25,11 @@ export const translations = {
     },
     bio: {
       label: "TRAJETÓRIA",
-      h2: "O Especialista que Une Ciência e Prática",
+      h2: "Liderando com IA a nova onda de produtividade e inovação",
       p: "Executivo com mais de 30 anos de mercado, pós-doutor em IA pela FEA/USP e professor premiado. Autor de \"Criatividade, Modelos Mentais e Inovação\". Minha trajetória é definida pela intersecção entre o rigor acadêmico e a aplicação prática nos negócios.",
       quote: "Busco inspirar novas reflexões, provocar as pessoas para repensar o sucesso e apoiar a mudança em direção a um novo capitalismo: veloz, eficiente, equilibrado.",
       pills: ["Pós-Doutor FEA/USP", "Doutor FEA/USP", "MSc FGV", "Ex-Google", "FIA Consulting", "ABNT IA"],
+      fullBio: "Com mais de 25 anos de estrada corporativa e acadêmica, tenho me dedicado a compreender e fazer girar as engrenagens da inovação e da geração de valor para todos. Graduei-me em Engenharia de Computadores e desde sempre tive uma jornada que fundiu experiências diversas e enriquecedoras. Contribuí com grandes empresas como Solvay, NEC, Embratel, Telefônica e Google e Receita Federal.\n\nAo longo da trajetória mantive, pela certeza que tenho muito a aprender, a conexão com a academia, culminando no Pós-Doutoramento em IA pela USP e em mais de 20 anos de experiência como professor e pesquisador. Prestei consultoria para mais de 40 clientes públicos e privados na resolução de desafios complexos. Minha produção acadêmica soma mais de 40 artigos científicos, 5 capítulos em coletâneas e um livro (\"Modelos Mentais, Criatividade e Inovação\", Ed. Senac), o que refletem meu compromisso com o avanço e compartilhamento do conhecimento.\n\nAtualmente, sou professor apaixonado pelo que faço, palestrante e autor de uma coluna da qual me orgulho na revista Istoé Dinheiro, onde compartilho minhas reflexões sobre IA, inovação e novas tecnologias. Também busco contribuir para o desenvolvimento da sociedade como Conselheiro da Prefeitura de São Paulo no Comitê de Políticas e Ações Climáticas e como Consultor da Comissão de Estudos de Tecnologias Quânticas da ABNT.\n\nAprendi ao longo do Caminho de Santiago que a viagem deve ser leve e, sempre que possível, carregada de significado e compartilhada com boas pessoas.\n\nHoje dedico minha carreira a auxiliar lideranças empresariais e gestores públicos a navegarem pelas mudanças, visando a um mundo mais equilibrado e próspero para todos.\n\nEsta é minha história até agora. Convido você a se conectar comigo e fazer parte dessa jornada, explorando as infinitas possibilidades que o futuro nos reserva.",
     },
     palestras: {
       label: "PALESTRAS",
@@ -92,7 +91,7 @@ export const translations = {
         {
           id: "800km",
           num: "03",
-          title: "800 km, Um Passo de Cada Vez",
+          title: "800km, Um passo\nde cada vez",
           badge: "Palestra Motivacional",
           audience: "Todos os públicos",
           accentColor: "#0d9488",
@@ -115,7 +114,7 @@ export const translations = {
     },
     trajetoria: {
       label: "TRAJETÓRIA",
-      h2: "30+ anos de\nexperiência profissional",
+      h2: "+30 anos de\nexperiência profissional",
       experienciaLabel: "Experiência",
       educacaoLabel: "Educação",
       experiencia: [
@@ -134,7 +133,7 @@ export const translations = {
     },
     publicacoes: {
       label: "TRABALHO DE INSPIRAR MUDANÇA",
-      h2: "60+ Artigos · 1 Livro · 4 Capítulos · 49 Artigos de Opinião",
+      h2: "Conteúdo",
       tabs: [
         "Publicações Científicas",
         "Livros & Capítulos",
@@ -168,8 +167,8 @@ export const translations = {
       ],
     },
     solucoes: {
-      label: "SOLUÇÕES",
-      h2: "Além das Palestras",
+      label: "Além das palestras",
+      h2: "Serviços",
       items: [
         { title: "Consultoria Estratégica", desc: "Projetos de estratégia, inovação e eficiência para governos e grandes empresas." },
         { title: "Mentoria Executiva", desc: "Sessões individuais para líderes navegarem transições e desenvolverem habilidades críticas." },
@@ -180,27 +179,85 @@ export const translations = {
       ],
     },
     depoimentos: {
-      label: "DEPOIMENTOS",
-      h2: "O Que Dizem",
+      label: "Recomendações",
+      h2: "Depoimentos",
       items: [
-        { quote: "A oportunidade das conversas semanais com o prof. Guedes ao longo desses três meses mostrou novos caminhos para a minha atuação na empresa e me ajudou a evitar obstáculos na chegada a essa nova função.", author: "VP Jurídico, Empresa Alimentícia" },
-        { quote: "A decisão de aceitar uma posição executiva fora do país foi a mais difícil da minha carreira e a mentoria me ajudou muito a pesar todos os fatores e enfim tomar uma decisão sólida.", author: "Diretor Marketing B2B, Indústria Química" },
-        { quote: "Palestrante que consegue equilibrar profundidade técnica com energia humana. Uma das melhores experiências de desenvolvimento que já tivemos.", author: "Gerente de RH, Empresa de Tecnologia" },
+        { 
+          quote: "O Prof. Dr. Luís Guedes foi meu Orientador no Mestrado Profissional da FIA. Além de um grande ser humano, o Guedes é uma mente brilhante conectada com inovação e um excelente comunicador... É oxigênio para nossas organizações e cabeça.", 
+          author: "Renê Delsin",
+          role: "CEO na Indústria Farmacêutica",
+          link: "https://www.linkedin.com/in/renedelsin/"
+        },
+        { 
+          quote: "Guedes reúne uma combinação rara de profundidade técnica e visão executiva... Recomendo fortemente seu nome a organizações e lideranças que buscam excelência estratégica, inovação aplicada e decisões fundamentadas em dados e ciência.", 
+          author: "Kallen Chen",
+          role: "Estrategista de Posicionamento Executivo",
+          link: "https://www.linkedin.com/in/kallenchen/"
+        },
+        { 
+          quote: "Guedes é inteligente, profundo conhecedor de IA e possui uma capacidade ímpar de transformar o complexo em uma narrativa clara e acessível. Com o Guedes, a 'conversa nunca acaba'!", 
+          author: "Luciane Righetti",
+          role: "Consultora e Estrategista de Carreira",
+          link: "https://www.linkedin.com/in/lucianerighetti/"
+        },
+        { 
+          quote: "Tem visão estratégica, inovadora e abordagem didática, transformando assuntos complexos em temas compreensíveis e engajadores... Foi uma experiência muito agregadora, que associou profundidade técnica, colaboração e bom humor.", 
+          author: "João Paulo Bittencourt",
+          role: "Gestão Estratégica e Desenvolvimento Humano",
+          link: "https://www.linkedin.com/in/bittencourtjp/"
+        },
+        { 
+          quote: "É raro encontrar professores que combinam excelência acadêmica, visão prática e compromisso genuíno com o sucesso do aluno... Recomendo fortemente o Prof. Luis Guedes para qualquer instituição ou projeto que valorize excelência, impacto e compromisso com a formação de líderes.", 
+          author: "Bruno Machado",
+          role: "VP de Transformação Digital | CIO",
+          link: "https://www.linkedin.com/in/brunohmm/"
+        },
+        { 
+          quote: "Quem não conhece o Professor Luis Guedes se impressiona quando lê seu Curriculum... Além de um craque do mundo corporativo e um acadêmico gigante, o Luis é um dos sujeitos mais amáveis, generosos e atenciosos que eu conheço.", 
+          author: "Julio Zaguini",
+          role: "Tech & Innovation Investor",
+          link: "https://www.linkedin.com/in/julio-zaguini-9237036/"
+        },
+        { 
+          quote: "Com um conhecimento teórico ímpar sobre as diversas questões que permeiam as nossas vidas nos negócios e, ao mesmo tempo, com uma relevante vivência profissional, o Prof Guedes leva aos estudantes e clientes uma visão pragmática com soluções bem encaminhadas.", 
+          author: "Fabio Arcuri",
+          role: "Membro da Diretoria da ABIIS",
+          link: "https://www.linkedin.com/in/fabio-arcuri/"
+        },
+        { 
+          quote: "A entrevista foi excepcional, o Prof. Luís contribuiu significativamente com seu conhecimento e experiência, sem dúvida, uma referência sobre o tema!", 
+          author: "Daniela Ferreira",
+          role: "Professora Universitária & Estratégia de Marcas",
+          link: "https://www.linkedin.com/in/danielaesterferreira/"
+        },
+        { 
+          quote: "É um professor diferenciado, seja pela sua expertise na área, seja pela forma cordial e respeitosa que aponta as oportunidades de desenvolvimento.", 
+          author: "Daniela Favaretto",
+          role: "Diretora de Escola Técnica",
+          link: "https://www.linkedin.com/in/daniela-favaretto/"
+        },
+        { 
+          quote: "Sem dúvida, um dos líderes mais inspiradores e desafiadores que já tive. Inovação está presente em tudo que faz... Sempre atualizado e com uma inteligência acima da média.", 
+          author: "Marcelo Tadeu Polizell",
+          role: "Executivo de Real Estate | Inovação",
+          link: "https://www.linkedin.com/search/results/all/?keywords=Marcelo%20Tadeu%20Polizell"
+        }
       ],
     },
     newsletter: {
-      label: "NEWSLETTER",
+      label: "Mensal · Gratuita · LinkedIn",
       h2: "Newsletter do Guedes",
       p: "Reflexões mensais sobre IA, inovação e o futuro do trabalho. Sem hype. Sem pauta de vendas.",
-      badge: "Mensal · Gratuita · LinkedIn",
+      badge: "",
       cta: "Assinar no LinkedIn →",
     },
     contato: {
-      label: "CONTATO",
-      h2: "Há muito o que fazer. Vamos juntos.",
+      label: "HÁ MUITO O QUE FAZER. VAMOS JUNTOS!",
+      h2: "Contato",
       p: "Comece com uma conversa.",
       nameLabel: "Nome", namePlaceholder: "Seu nome", nameError: "Nome é obrigatório",
-      companyLabel: "Empresa", companyPlaceholder: "Sua empresa", companyError: "Empresa é obrigatória",
+      emailLabel: "E-mail corporativo", emailPlaceholder: "Seu e-mail corporativo", emailError: "E-mail inválido",
+      whatsappLabel: "WhatsApp", whatsappPlaceholder: "Seu WhatsApp", whatsappError: "WhatsApp é obrigatório",
       typeLabel: "Tipo", typeError: "Selecione um tipo", typePlaceholder: "Selecione o assunto...",
       typeOptions: [
         { value: "Palestra", label: "Palestra" },
@@ -209,7 +266,7 @@ export const translations = {
         { value: "Pesquisa", label: "Pesquisa" },
         { value: "Outro", label: "Outro" },
       ],
-      messageLabel: "Mensagem", messagePlaceholder: "Como posso ajudar?", messageError: "Mensagem deve ter no mínimo 10 caracteres",
+      consentLabel: "Para fornecer o conteúdo solicitado, precisamos armazenar e processar seus dados pessoais. Eu concordo em permitir que a Guedes armazene e processe meus dados pessoais conforme a política de privacidade", consentError: "Você precisa aceitar os termos",
       submit: "Enviar mensagem",
       submitting: "Enviando...",
       successTitle: "Mensagem enviada",
@@ -222,12 +279,10 @@ export const translations = {
   en: {
     nav: {
       links: [
-        { name: "Clients",      href: "#clientes" },
+        { name: "About",        href: "#trajetoria" },
         { name: "Talks",        href: "#palestras" },
-        { name: "Career",       href: "#trajetoria" },
         { name: "Publications", href: "#publicacoes" },
-        { name: "Solutions",    href: "#solucoes" },
-        { name: "Contact",      href: "#contato" },
+        { name: "Services",     href: "#solucoes" },
       ],
       cta: "Book a Talk",
       menu: "Menu",
@@ -235,9 +290,9 @@ export const translations = {
     hero: {
       badge: "Post-Doctorate in AI at FEA/USP",
       h2: "AI and Innovation for the Future",
-      p: "Professor · International Speaker · Strategic Consultant",
+      p: "Specialist in strategy, innovation, and ESG",
       cta1: "Book a Talk",
-      cta2: "View Talks",
+      cta2: "Talks",
       stats: ["100+ Talks", "30+ Years", "5 countries"],
     },
     clientes: {
@@ -247,10 +302,11 @@ export const translations = {
     },
     bio: {
       label: "CAREER",
-      h2: "The Expert Who Bridges Science and Practice",
+      h2: "Leading the new wave of productivity and innovation with AI",
       p: "Executive with over 30 years of experience, post-doctorate in AI from FEA/USP and award-winning professor. Author of \"Creativity, Mental Models and Innovation\". My career is defined by the intersection between academic rigor and practical business application.",
       quote: "I seek to inspire new reflections, challenge people to rethink success, and support change toward a new capitalism: fast, efficient, balanced.",
       pills: ["Post-Doc FEA/USP", "PhD FEA/USP", "MSc FGV", "Ex-Google", "FIA Consulting", "ABNT AI"],
+      fullBio: "With over 25 years of corporate and academic experience, I have dedicated myself to understanding and driving the wheels of innovation and value generation for all. I graduated in Computer Engineering and have always had a journey that fused diverse and enriching experiences. I have contributed to large companies such as Solvay, NEC, Embratel, Telefônica, Google, and the Federal Revenue Service.\n\nThroughout my career, I have maintained a connection with academia, driven by the certainty that I have much to learn, culminating in a Post-Doctorate in AI from USP and over 20 years of experience as a professor and researcher. I have consulted for more than 40 public and private clients in resolving complex challenges. My academic production includes more than 40 scientific articles, 5 chapters in collections, and a book (\"Mental Models, Creativity and Innovation\", Ed. Senac), reflecting my commitment to the advancement and sharing of knowledge.\n\nCurrently, I am a passionate professor, speaker, and author of a column I am proud of in Istoé Dinheiro magazine, where I share my reflections on AI, innovation, and new technologies. I also seek to contribute to the development of society as an Advisor to the City of São Paulo on the Climate Policy and Action Committee and as a Consultant to the ABNT Quantum Technologies Study Commission.\n\nI learned along the Camino de Santiago that the journey should be light and, whenever possible, full of meaning and shared with good people.\n\nToday, I dedicate my career to helping business leaders and public managers navigate changes, aiming for a more balanced and prosperous world for everyone.\n\nThis is my story so far. I invite you to connect with me and be part of this journey, exploring the infinite possibilities that the future holds for us.",
     },
     palestras: {
       label: "TALKS",
@@ -312,7 +368,7 @@ export const translations = {
         {
           id: "800km",
           num: "03",
-          title: "800 km, One Step at a Time",
+          title: "800 km, One Step\nat a Time",
           badge: "Motivational Talk",
           audience: "All audiences",
           accentColor: "#0d9488",
@@ -420,8 +476,9 @@ export const translations = {
       h2: "There's much to do. Let's do it together.",
       p: "Start with a conversation.",
       nameLabel: "Name", namePlaceholder: "Your name", nameError: "Name is required",
-      companyLabel: "Company", companyPlaceholder: "Your company", companyError: "Company is required",
-      typeLabel: "Type", typeError: "Select a type", typePlaceholder: "Select a topic...",
+      emailLabel: "Corporate email", emailPlaceholder: "Your corporate email", emailError: "Invalid email",
+      whatsappLabel: "WhatsApp", whatsappPlaceholder: "Your WhatsApp", whatsappError: "WhatsApp is required",
+      typeLabel: "Type", typeError: "Select a type", typePlaceholder: "Select subject...",
       typeOptions: [
         { value: "Palestra", label: "Talk" },
         { value: "Consultoria", label: "Consulting" },
@@ -429,7 +486,7 @@ export const translations = {
         { value: "Pesquisa", label: "Research" },
         { value: "Outro", label: "Other" },
       ],
-      messageLabel: "Message", messagePlaceholder: "How can I help?", messageError: "Message must be at least 10 characters",
+      messageLabel: "Message", messagePlaceholder: "How can I help?", messageError: "Message too short",
       submit: "Send message",
       submitting: "Sending...",
       successTitle: "Message sent",
@@ -442,12 +499,10 @@ export const translations = {
   es: {
     nav: {
       links: [
-        { name: "Clientes",      href: "#clientes" },
+        { name: "Sobre Mí",      href: "#trajetoria" },
         { name: "Conferencias",  href: "#palestras" },
-        { name: "Trayectoria",   href: "#trajetoria" },
         { name: "Publicaciones", href: "#publicacoes" },
-        { name: "Soluciones",    href: "#solucoes" },
-        { name: "Contacto",      href: "#contato" },
+        { name: "Servicios",     href: "#solucoes" },
       ],
       cta: "Contratar Conferencia",
       menu: "Menú",
@@ -455,9 +510,9 @@ export const translations = {
     hero: {
       badge: "Postdoctorado en IA por FEA/USP",
       h2: "IA e Innovación para el Futuro",
-      p: "Profesor · Conferencista Internacional · Consultor Estratégico",
+      p: "Especialista en estrategia, innovación y ESG",
       cta1: "Contratar Conferencia",
-      cta2: "Ver Conferencias",
+      cta2: "Conferencias",
       stats: ["100+ Conferencias", "30+ Años", "5 países"],
     },
     clientes: {
@@ -467,10 +522,11 @@ export const translations = {
     },
     bio: {
       label: "TRAYECTORIA",
-      h2: "El Experto que Une Ciencia y Práctica",
+      h2: "Liderando con IA la nueva ola de productividad e innovación",
       p: "Ejecutivo con más de 30 años de experiencia, postdoctorado en IA por la FEA/USP y profesor premiado. Autor de \"Creatividad, Modelos Mentales e Innovación\". Mi trayectoria está definida por la intersección entre el rigor académico y la aplicación práctica en los negocios.",
       quote: "Busco inspirar nuevas reflexiones, provocar a las personas para repensar el éxito y apoyar el cambio hacia un nuevo capitalismo: veloz, eficiente, equilibrado.",
       pills: ["Postdoc FEA/USP", "PhD FEA/USP", "MSc FGV", "Ex-Google", "FIA Consulting", "ABNT IA"],
+      fullBio: "Con más de 25 años de trayectoria corporativa y académica, me he dedicado a comprender y hacer girar los engranajes de la innovación y la generación de valor para todos. Me gradué en Ingeniería de Computación y desde siempre he tenido un recorrido que fusionó experiencias diversas y enriquecedoras. Contribuí con grandes empresas como Solvay, NEC, Embratel, Telefónica, Google y la Receita Federal.\n\nA lo largo de mi trayectoria, mantuve la conexión con la academia por la certeza de que tengo mucho que aprender, lo que culminó en un Posdoctorado em IA por la USP y en más de 20 años de experiencia como profesor e investigador. Presté consultoría a más de 40 clientes públicos y privados en la resolución de desafíos complejos. Mi producción académica suma más de 40 artículos científicos, 5 capítulos en colecciones y un libro (\"Modelos Mentales, Creatividad e Innovación\", Ed. Senac), lo que refleja mi compromiso con el avance y el intercambio de conocimientos.\n\nActualmente, soy un profesor apasionado por lo que hago, conferencista y autor de una columna de la que me enorgullezco en la revista Istoé Dinheiro, donde comparto mis reflexiones sobre IA, innovación y nuevas tecnologías. También busco contribuir al desarrollo de la sociedad como Consejero de la Alcaldía de São Paulo en el Comité de Políticas y Acciones Climáticas y como Consultor de la Comisión de Estudios de Tecnologías Cuánticas de la ABNT.\n\nAprendí a lo largo del Camino de Santiago que el viaje debe ser ligero y, siempre que sea posible, cargado de significado y compartido con buenas personas.\n\nHoy dedico mi carrera a ayudar a líderes empresariales y gestores públicos a navegar por los cambios, buscando un mundo más equilibrado y próspero para todos.\n\nEsta es mi historia hasta ahora. Te invito a conectarte conmigo y ser parte de esta jornada, explorando las infinitas posibilidades que el futuro nos reserva.",
     },
     palestras: {
       label: "CONFERENCIAS",
@@ -532,7 +588,7 @@ export const translations = {
         {
           id: "800km",
           num: "03",
-          title: "800 km, Un Paso a la Vez",
+          title: "800 km, Un Paso\na la Vez",
           badge: "Conferencia Motivacional",
           audience: "Todos los públicos",
           accentColor: "#0d9488",
@@ -640,7 +696,8 @@ export const translations = {
       h2: "Hay mucho por hacer. Vamos juntos.",
       p: "Comienza con una conversación.",
       nameLabel: "Nombre", namePlaceholder: "Tu nombre", nameError: "El nombre es obligatorio",
-      companyLabel: "Empresa", companyPlaceholder: "Tu empresa", companyError: "La empresa es obligatoria",
+      emailLabel: "Correo corporativo", emailPlaceholder: "Tu correo corporativo", emailError: "Correo inválido",
+      whatsappLabel: "WhatsApp", whatsappPlaceholder: "Tu WhatsApp", whatsappError: "WhatsApp es obligatorio",
       typeLabel: "Tipo", typeError: "Selecciona un tipo", typePlaceholder: "Selecciona el asunto...",
       typeOptions: [
         { value: "Palestra", label: "Conferencia" },
@@ -649,7 +706,7 @@ export const translations = {
         { value: "Pesquisa", label: "Investigación" },
         { value: "Outro", label: "Otro" },
       ],
-      messageLabel: "Mensaje", messagePlaceholder: "¿Cómo puedo ayudarte?", messageError: "El mensaje debe tener al menos 10 caracteres",
+      consentLabel: "Para proporcionar el contenido solicitado, necesitamos almacenar y procesar sus datos personales. Acepto permitir que Guedes almacene y procese mis datos personales de acuerdo con la política de privacidad.", consentError: "Debes aceptar los términos",
       submit: "Enviar mensaje",
       submitting: "Enviando...",
       successTitle: "Mensaje enviado",

@@ -5,7 +5,7 @@ export default function Solucoes() {
   const { t } = useLanguage();
 
   return (
-    <section id="solucoes" className="w-full py-32 px-6">
+    <section id="solucoes" className="w-full py-16 md:py-32 px-6">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 24 }}

@@ -8,7 +8,7 @@ export default function Clientes() {
   const { t } = useLanguage();
 
   return (
-    <section id="clientes" className="w-full py-32 overflow-hidden bg-background">
+    <section id="clientes" className="w-full py-16 md:py-32 overflow-hidden bg-background">
       <div className="max-w-7xl mx-auto px-6 mb-16">
         <motion.div
           initial={{ opacity: 0, y: 24 }}

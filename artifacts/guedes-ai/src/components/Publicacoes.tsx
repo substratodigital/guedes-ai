@@ -270,7 +270,7 @@ export default function Publicacoes() {
   const isExp = (key: string) => !!expanded[key];
 
   return (
-    <section id="publicacoes" className="w-full py-32 px-6 bg-muted/30">
+    <section id="publicacoes" className="w-full py-16 md:py-32 px-6 bg-muted/30">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div

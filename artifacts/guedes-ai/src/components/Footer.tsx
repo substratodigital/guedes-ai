@@ -2,7 +2,7 @@ import { FaWhatsapp, FaLinkedin, FaEnvelope } from "react-icons/fa";
 
 export default function Footer() {
   return (
-    <footer className="w-full py-12 px-6 bg-background border-t border-border">
+    <footer className="w-full py-8 md:py-12 px-6 bg-background border-t border-border">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
         
         <div className="flex flex-col items-center md:items-start gap-2">

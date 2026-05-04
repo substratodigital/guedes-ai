@@ -5,7 +5,7 @@ export default function Newsletter() {
   const { t } = useLanguage();
 
   return (
-    <section id="newsletter" className="w-full py-32 px-6">
+    <section id="newsletter" className="w-full py-16 md:py-32 px-6">
       <div className="max-w-4xl mx-auto text-center">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -25,11 +25,7 @@ export default function Newsletter() {
             {t.newsletter.p}
           </p>
 
-          <div className="mb-10 flex items-center justify-center">
-            <span className="text-xs font-medium text-foreground/60 bg-foreground/[0.04] border border-border px-4 py-1.5 rounded-full">
-              {t.newsletter.badge}
-            </span>
-          </div>
+
 
           <a
             href="https://www.linkedin.com/newsletters/newsletter-do-guedes-7186097313407258624/"

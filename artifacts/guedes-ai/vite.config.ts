@@ -13,9 +13,9 @@ if (rawPort && (Number.isNaN(port) || port <= 0)) {
   throw new Error(`Invalid PORT value: "${rawPort}"`);
 }
 
-if (!isBuild && !rawPort) {
-  throw new Error("PORT environment variable is required for dev/preview but was not provided.");
-}
+// if (!isBuild && !rawPort) {
+//   throw new Error("PORT environment variable is required for dev/preview but was not provided.");
+// }
 
 const basePath = process.env.BASE_PATH ?? "/";
 

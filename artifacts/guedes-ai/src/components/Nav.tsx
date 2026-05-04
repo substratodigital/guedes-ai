@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sun, Moon, ChevronDown, Check } from "lucide-react";
+import { Sun, Moon, ChevronDown, Check, Linkedin } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
 import { useLanguage, type Language } from "@/context/LanguageContext";
 
@@ -83,6 +83,17 @@ export default function Nav() {
 
           {/* Right actions */}
           <div className="flex items-center gap-2 z-[110] relative">
+
+            {/* LinkedIn */}
+            <a
+              href="https://linkedin.com/in/lguedes"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className="flex w-9 h-9 items-center justify-center rounded-full border border-border text-foreground/60 hover:text-primary hover:border-primary/30 transition-all"
+            >
+              <Linkedin className="w-4 h-4" strokeWidth={1.5} />
+            </a>
 
             {/* Language dropdown */}
             <div ref={langRef} className="relative">
@@ -250,9 +261,6 @@ export default function Nav() {
               >
                 {t.nav.cta}
               </a>
-              <p className="text-center text-[11px] text-foreground/30 font-mono mt-4 tracking-wide uppercase">
-                lguedes.sp@gmail.com
-              </p>
             </motion.div>
           </motion.div>
         )}
