@@ -85,21 +85,6 @@ export default function Hero() {
             <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 transition-transform duration-300 group-hover:translate-x-1" />
           </button>
         </motion.div>
-
-        {/* Stats */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 1 }}
-          className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 sm:gap-10 text-white/40 text-[10px] sm:text-[11px] font-mono tracking-widest uppercase"
-        >
-          {t.hero.stats.map((s, i) => (
-            <span key={i} className="flex items-center gap-2">
-              <span className="w-1 h-1 rounded-full bg-white/30" />
-              {s}
-            </span>
-          ))}
-        </motion.div>
       </div>
     </section>
   );
